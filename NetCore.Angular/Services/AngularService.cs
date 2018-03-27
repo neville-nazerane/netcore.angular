@@ -20,14 +20,14 @@ namespace NetCore.Angular.Services
             this.html = html;
         }
 
-        public IHtmlContent GenerateScripts()
+        internal IHtmlContent GenerateScripts()
         {
 
             string Scripts = string.Join(@",\n",
                         Pairs.Select(p => $"'{p.Key}' : {html.Raw(JsonConvert.SerializeObject(p.Value))}")
                 );
 
-            return html.Raw($"<script>var netcore_angular_pairs = {{{Scripts}}};</script>");
+            return html.Raw($"var netcore_angular_pairs = {{{Scripts}}};");
         }
 
     }
