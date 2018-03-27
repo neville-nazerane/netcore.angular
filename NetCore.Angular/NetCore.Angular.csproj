@@ -2,6 +2,21 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <PackageId>NetCore.Angular</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
+    <Authors>Neville Nazerane</Authors>
+    <Description>
+      Integration between .net core web applications and angulars
+    </Description>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <PackageReleaseNotes>
+      - Initial release. can pass c# object to scope directly from div
+    </PackageReleaseNotes>
+    <PackageTags>netcore mvc angular strongly typed safe tag helpers</PackageTags>
+    <!--<PackageIconUrl>http://netcoresimple.azurewebsites.net/content/themes/icon.png</PackageIconUrl>-->
+    <PackageProjectUrl>https://github.com/neville-nazerane/netcore.angular</PackageProjectUrl>
+    <RootNamespace>NetCore.Angular</RootNamespace>
+    <AssemblyName>NetCore.Angular</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
