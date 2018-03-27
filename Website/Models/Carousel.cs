@@ -16,31 +16,40 @@ namespace Website.Models
 
         public string Link { get; set; }
 
+        public string ImgAlt { get; set; }
+
+        public string ActiveClass { get; set; }
+
         public static IEnumerable<Carousel> GetAll()
             => new List<Carousel> {
                 new Carousel{
                     Id = 0,
                     Img = "banner1.svg",
                     Title = "Learn how to build ASP.NET apps that can run anywhere.",
-                    Link = "https://go.microsoft.com/fwlink/?LinkID=525028&clcid=0x409"
+                    Link = "https://go.microsoft.com/fwlink/?LinkID=525028&clcid=0x409",
+                    ImgAlt = "ASP.NET",
+                    ActiveClass = "active"
                 },
                 new Carousel{
                     Id = 1,
                     Img = "banner2.svg",
                     Title = "There are powerful new features in Visual Studio for building modern web apps.",
+                    ImgAlt = "Visual Studio",
                     Link = "https://go.microsoft.com/fwlink/?LinkID=525028&clcid=0x409"
                 },
                 new Carousel{
                     Id = 2,
                     Img = "banner3.svg",
                     Title = "Bring in libraries from NuGet and npm, and automate tasks using Grunt or Gulp.",
+                    ImgAlt = "Package Management",
                     Link = "https://go.microsoft.com/fwlink/?LinkID=525028&clcid=0x409"
                 },
                 new Carousel{
                     Id = 3,
                     Img = "banner4.svg",
                     Title = "Learn how Microsoft's Azure cloud platform allows you to build, deploy, and scale web apps.",
-                    Link = "https://go.microsoft.com/fwlink/?LinkID=525028&clcid=0x409"
+                    Link = "https://go.microsoft.com/fwlink/?LinkID=525028&clcid=0x409",
+                    ImgAlt = "Microsoft Azure"
                 }
             };
 
