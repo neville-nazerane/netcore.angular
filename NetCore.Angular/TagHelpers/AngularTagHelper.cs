@@ -6,9 +6,15 @@ using System.Text;
 
 namespace NetCore.Angular.TagHelpers
 {
+    public class DivMeTagHelper : TagHelper
+    {
+        public string Vals { get; set; }
+    }
 
     public abstract class AngularTagHelper : TagHelper
     {
+
+        string uid = Guid.NewGuid().ToString("N");
         private readonly AngularService angularService;
 
         internal abstract string Tag { get; }
@@ -24,6 +30,12 @@ namespace NetCore.Angular.TagHelpers
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
+            if (Source != null) angularService.Pairs.Add(uid, Source);
+            output.Attributes.SetAttribute("netcore-angular-set", uid);
+            if (ScopeDest != null)
+            {
+                output.Attributes.SetAttribute("set-to-scope", ScopeDest);
+            }
             output.TagName = Tag;
         }
 

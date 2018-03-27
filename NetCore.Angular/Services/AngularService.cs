@@ -12,9 +12,9 @@ namespace NetCore.Angular.Services
     {
         private readonly IHtmlHelper html;
 
-        Dictionary<string, object> Pairs { get; set; }
+        internal Dictionary<string, object> Pairs { get; set; }
 
-        AngularService(IHtmlHelper html)
+        public AngularService(IHtmlHelper html)
         {
             Pairs = new Dictionary<string, object>();
             this.html = html;
@@ -27,7 +27,7 @@ namespace NetCore.Angular.Services
                         Pairs.Select(p => $"'{p.Key}' : {html.Raw(JsonConvert.SerializeObject(p.Value))}")
                 );
 
-            return html.Raw($"<script>var angular_pairs = {{{Scripts}}};</script>");
+            return html.Raw($"<script>var netcore_angular_pairs = {{{Scripts}}};</script>");
         }
 
     }

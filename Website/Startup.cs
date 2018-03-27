@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NetCore.Angular.Services;
 
 namespace Website
 {
@@ -21,6 +22,9 @@ namespace Website
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddScoped<AngularService>();
+
             services.AddMvc();
         }
 
