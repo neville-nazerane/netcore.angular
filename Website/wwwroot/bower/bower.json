@@ -1,6 +1,23 @@
 {
-  "version": "1.0.0",
-  "name": "netcore-angular",
-  "devDependencies": {
-  }
+  "name": "netCore-angular",
+  "description": "integrating .net core with angular",
+  "version": "1.0",
+  "main": [
+    "js/netcore-angular.js"
+  ],
+  "keywords": [
+    "aspnetcore",
+    "angular",
+    "tag helpers"
+  ],
+  "authors": [
+    "Neville Nazerane"
+  ],
+  "dependencies": {
+    "jquery": "~3.2.1",
+    "angular": "~1.6.9"
+  },
+  "license": "MIT",
+  "homepage": "http://netcoresimple.azurewebsites.net/",
+  "private": false
 }
