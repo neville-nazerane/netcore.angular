@@ -7,10 +7,6 @@ using System.Text;
 
 namespace NetCore.Angular.TagHelpers
 {
-    public class DivMeTagHelper : TagHelper
-    {
-        public string Vals { get; set; }
-    }
 
     public abstract class AngularTagHelper : TagHelper
     {
@@ -27,14 +23,44 @@ namespace NetCore.Angular.TagHelpers
 
         public ModelExpression Destination { get; set; }
 
+        public ModelExpression AngBind { get; set; }
+
+        public ModelExpression AngRepeat { get; set; }
+        public ModelExpression AngRepeatTo { get; set; }
+
+        public ModelExpression AngClass { get; set; }
+
+        public ModelExpression AngIf { get; set; }
+
+        public ModelExpression AngShow { get; set; }
+        public ModelExpression AngHide { get; set; }
+
         public AngularTagHelper(AngularService angularService, AngularServiceOptions options)
         {
             this.angularService = angularService;
             this.options = options;
         }
-
+        
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
+
+            output.SetNgFor(AngBind, "ng-bind")
+                  .SetNgFor(AngClass, "ng-class")
+                  .SetNgFor(AngIf, "ng-if")
+                  .SetNgFor(AngShow, "ng-show")
+                  .SetNgFor(AngHide, "ng-hide");
+
+            if (AngRepeat != null)
+            {
+                string repStr = AngRepeat.Name;
+                if (AngRepeatTo != null)
+                    repStr = $"{AngRepeatTo.Name} in {repStr}";
+                else if (repStr.EndsWith('s'))
+                    repStr = $"{repStr.Substring(0, repStr.Length - 1)} in {repStr}";
+                else repStr = $"single in {repStr}";
+                output.Attributes.SetAttribute("ng-repeat", repStr);
+            }
+
             if (Source != null) angularService.Pairs.Add(uid, Source);
             output.Attributes.SetAttribute("netcore-angular-set", uid);
             if (ScopeDest != null)
@@ -177,5 +203,15 @@ namespace NetCore.Angular.TagHelpers
         internal override string Tag => "h5";
     }
     
+    
+    static class OutputExtentions
+    {
+        internal static TagHelperOutput SetNgFor(this TagHelperOutput output, ModelExpression expression, string ng)
+        {
+            if (expression != null)
+                output.Attributes.SetAttribute(ng, expression.Name);
+            return output;
+        }
+    }
 
 }
