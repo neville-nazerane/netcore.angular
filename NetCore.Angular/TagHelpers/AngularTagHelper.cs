@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Razor.TagHelpers;
+﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.AspNetCore.Razor.TagHelpers;
 using NetCore.Angular.Services;
 using System;
 using System.Collections.Generic;
@@ -16,6 +17,7 @@ namespace NetCore.Angular.TagHelpers
 
         string uid = Guid.NewGuid().ToString("N");
         private readonly AngularService angularService;
+        private readonly AngularServiceOptions options;
 
         internal abstract string Tag { get; }
 
@@ -23,9 +25,12 @@ namespace NetCore.Angular.TagHelpers
 
         public string ScopeDest { get; set; }
 
-        public AngularTagHelper(AngularService angularService)
+        public ModelExpression Destination { get; set; }
+
+        public AngularTagHelper(AngularService angularService, AngularServiceOptions options)
         {
             this.angularService = angularService;
+            this.options = options;
         }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
@@ -36,6 +41,10 @@ namespace NetCore.Angular.TagHelpers
             {
                 output.Attributes.SetAttribute("set-to-scope", ScopeDest);
             }
+            else if (Destination != null)
+            {
+                output.Attributes.SetAttribute("set-to-scope", Destination.Name);
+            }
             output.TagName = Tag;
         }
 
@@ -43,7 +52,8 @@ namespace NetCore.Angular.TagHelpers
 
     public class DivAngularTagHelper : AngularTagHelper
     {
-        public DivAngularTagHelper(AngularService angularService) : base(angularService)
+        public DivAngularTagHelper(AngularService angularService, AngularServiceOptions options) 
+            : base(angularService, options)
         {
         }
 
@@ -52,7 +62,7 @@ namespace NetCore.Angular.TagHelpers
 
     public class TableAngularTagHelper : AngularTagHelper
     {
-        public TableAngularTagHelper(AngularService angularService) : base(angularService)
+        public TableAngularTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
         {
         }
 
@@ -61,7 +71,7 @@ namespace NetCore.Angular.TagHelpers
 
     public class TrAngularTagHelper : AngularTagHelper
     {
-        public TrAngularTagHelper(AngularService angularService) : base(angularService)
+        public TrAngularTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
         {
         }
 
@@ -70,7 +80,7 @@ namespace NetCore.Angular.TagHelpers
 
     public class LiAngularTagHelper : AngularTagHelper
     {
-        public LiAngularTagHelper(AngularService angularService) : base(angularService)
+        public LiAngularTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
         {
         }
 
@@ -79,7 +89,7 @@ namespace NetCore.Angular.TagHelpers
 
     public class UlAngularTagHelper : AngularTagHelper
     {
-        public UlAngularTagHelper(AngularService angularService) : base(angularService)
+        public UlAngularTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
         {
         }
 
@@ -88,7 +98,7 @@ namespace NetCore.Angular.TagHelpers
 
     public class OlAngularTagHelper : AngularTagHelper
     {
-        public OlAngularTagHelper(AngularService angularService) : base(angularService)
+        public OlAngularTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
         {
         }
 
@@ -97,7 +107,7 @@ namespace NetCore.Angular.TagHelpers
 
     public class FooterAngularTagHelper : AngularTagHelper
     {
-        public FooterAngularTagHelper(AngularService angularService) : base(angularService)
+        public FooterAngularTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
         {
         }
 
@@ -106,7 +116,7 @@ namespace NetCore.Angular.TagHelpers
 
     public class SpanAngularTagHelper : AngularTagHelper
     {
-        public SpanAngularTagHelper(AngularService angularService) : base(angularService)
+        public SpanAngularTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
         {
         }
 
@@ -115,7 +125,7 @@ namespace NetCore.Angular.TagHelpers
 
     public class PAngularTagHelper : AngularTagHelper
     {
-        public PAngularTagHelper(AngularService angularService) : base(angularService)
+        public PAngularTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
         {
         }
 
@@ -124,7 +134,7 @@ namespace NetCore.Angular.TagHelpers
 
     public class H1AngularTagHelper : AngularTagHelper
     {
-        public H1AngularTagHelper(AngularService angularService) : base(angularService)
+        public H1AngularTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
         {
         }
 
@@ -133,7 +143,7 @@ namespace NetCore.Angular.TagHelpers
 
     public class H2AngularTagHelper : AngularTagHelper
     {
-        public H2AngularTagHelper(AngularService angularService) : base(angularService)
+        public H2AngularTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
         {
         }
 
@@ -142,7 +152,7 @@ namespace NetCore.Angular.TagHelpers
 
     public class H3AngularTagHelper : AngularTagHelper
     {
-        public H3AngularTagHelper(AngularService angularService) : base(angularService)
+        public H3AngularTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
         {
         }
 
@@ -151,7 +161,7 @@ namespace NetCore.Angular.TagHelpers
 
     public class H4AngularTagHelper : AngularTagHelper
     {
-        public H4AngularTagHelper(AngularService angularService) : base(angularService)
+        public H4AngularTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
         {
         }
 
@@ -160,7 +170,7 @@ namespace NetCore.Angular.TagHelpers
 
     public class H5AngularTagHelper : AngularTagHelper
     {
-        public H5AngularTagHelper(AngularService angularService) : base(angularService)
+        public H5AngularTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
         {
         }
 

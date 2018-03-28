@@ -23,8 +23,7 @@ namespace Website
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddScoped<AngularService>();
-
+            services.AddNetCoreAngular();
             services.AddMvc();
         }
 

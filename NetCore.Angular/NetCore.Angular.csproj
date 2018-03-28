@@ -10,7 +10,7 @@
     </Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>
-      - Initial release: can pass c# object to scope directly from div
+      - Added extension function to add all services
     </PackageReleaseNotes>
     <PackageTags>netcore mvc angular strongly typed safe tag helpers</PackageTags>
     <!--<PackageIconUrl>http://netcoresimple.azurewebsites.net/content/themes/icon.png</PackageIconUrl>-->

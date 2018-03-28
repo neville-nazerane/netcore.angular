@@ -1,18 +1,15 @@
-﻿
+﻿@model AngularFields
 @{
     ViewData["Title"] = "Home Page";
 }
 
-<div-angular source="Carousel.GetAll()" scope-dest="sliders" id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+<div-angular source="Carousel.GetAll()" destination="Carousel" id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
-        <li ng-repeat="slide in sliders" data-target="#myCarousel" data-slide-to="{{slide.Id}}" class="{{slide.ActiveClass}}"></li>
-        @*<li data-target="#myCarousel" data-slide-to="1"></li>
-        <li data-target="#myCarousel" data-slide-to="2"></li>
-        <li data-target="#myCarousel" data-slide-to="3"></li>*@
+        <li ng-repeat="slide in Carousel" data-target="#myCarousel" data-slide-to="{{Carousel.Id}}" class="{{Carousel.ActiveClass}}"></li>
     </ol>
     
     <div class="carousel-inner" role="listbox">
-        <div ng-repeat="slide in sliders" class="item {{slide.ActiveClass}}">
+        <div ng-repeat="slide in Carousel" class="item {{slide.ActiveClass}}">
             <img src="~/images/{{slide.Img}}" alt="{{slide.ImgAlt}}" class="img-responsive" />
             <div class="carousel-caption" role="option">
                 <p>
