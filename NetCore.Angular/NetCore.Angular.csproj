@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <PackageId>NetCore.Angular</PackageId>
-    <PackageVersion>1.0.2</PackageVersion>
+    <PackageVersion>1.0.5</PackageVersion>
     <Authors>Neville Nazerane</Authors>
     <Description>
       Integration between .net core web applications and angulars
