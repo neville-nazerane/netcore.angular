@@ -35,7 +35,7 @@ namespace Website.Models
                     Img = "banner2.svg",
                     Title = "There are powerful new features in Visual Studio for building modern web apps.",
                     ImgAlt = "Visual Studio",
-                    Link = "https://go.microsoft.com/fwlink/?LinkID=525028&clcid=0x409"
+                    Link = "https://visualstudio.com"
                 },
                 new Carousel{
                     Id = 2,

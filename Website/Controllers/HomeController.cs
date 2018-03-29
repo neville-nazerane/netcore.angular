@@ -12,7 +12,7 @@ namespace Website.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            return View(new AngularFields { Carousels = Carousel.GetAll().ToList() });
         }
 
         public IActionResult About()

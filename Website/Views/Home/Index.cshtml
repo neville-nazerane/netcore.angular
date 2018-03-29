@@ -10,14 +10,14 @@
     
     <div class="carousel-inner" role="listbox">
         <div-angular ang-repeat="Carousels" class="item" ang-class="Carousel.ActiveClass">
-            <img src="~/images/{{Carousel.Img}}" alt="{{Carousel.ImgAlt}}" class="img-responsive" />
+            <img-angular ang-src-route="~/images/" ang-src="Carousel.Img" ang-alt="Carousel.ImgAlt" class="img-responsive" />
             <div class="carousel-caption" role="option">
-                <p-angular >
+                <p>
                     <span-angular ang-bind="Carousel.Title"></span-angular>
-                    <a class="btn btn-default" ng-href="{{Carousel.Link}}">
+                    <a-angular class="btn btn-default" ang-href="Carousel.Link">
                         Learn More
-                    </a>
-                </p-angular>
+                    </a-angular>
+                </p>
             </div>
         </div-angular>
     </div>

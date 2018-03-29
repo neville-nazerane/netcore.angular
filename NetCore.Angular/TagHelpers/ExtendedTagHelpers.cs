@@ -40,9 +40,25 @@ namespace NetCore.Angular.TagHelpers
         public ModelExpression AngShow { get; set; }
         public ModelExpression AngHide { get; set; }
 
+        public ModelExpression AngSrc { get; set; }
+        public string AngSrcPrefix { get; set; }
+        public string AngSrcSuffix { get; set; }
+        public string AngSrcRoute { get; set; }
+        public ModelExpression AngAlt { get; set; }
+
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             this.Process(context, output, Tag, angularService, options);
+            if (AngAlt != null)
+                output.Attributes.SetAttribute("alt", $"{{{{{AngAlt.Name}}}}}");
+            if (AngSrc != null)
+            {
+                string src = "{{" + AngSrc.Name + "}}";
+                if (AngSrcRoute != null)
+                    src = UrlHelperFactory.GetUrlHelper(ViewContext).Content(AngSrcRoute) + src;
+                src = $"{AngSrcPrefix}{src}{AngSrcSuffix}";
+                output.Attributes.SetAttribute("ng-src", src);
+            }
         }
     }
 
@@ -51,12 +67,13 @@ namespace NetCore.Angular.TagHelpers
         private readonly AngularService angularService;
         private readonly AngularServiceOptions options;
 
-        private const string Tag = "img";
+        private const string Tag = "a";
 
-        public AAngularTagHelper(IHtmlGenerator generator, 
+        public AAngularTagHelper(IHtmlGenerator generator, IUrlHelperFactory urlHelperFactory,
             AngularService angularService, AngularServiceOptions options) 
             : base(generator)
         {
+            UrlHelperFactory = urlHelperFactory;
             this.angularService = angularService;
             this.options = options;
         }
@@ -72,9 +89,24 @@ namespace NetCore.Angular.TagHelpers
         public ModelExpression AngShow { get; set; }
         public ModelExpression AngHide { get; set; }
 
+        public ModelExpression AngHref { get; set; }
+        public string AngHrefPrefix { get; set; }
+        public string AngHrefSuffix { get; set; }
+        public string AngHrefRoute { get; set; }
+        IUrlHelperFactory UrlHelperFactory { get; }
+
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             this.Process(context, output, Tag, angularService, options);
+            if (AngHref != null)
+            {
+                string href = "{{" + AngHref.Name + "}}";
+                if (AngHrefRoute != null)
+                    
+                    href = UrlHelperFactory.GetUrlHelper(ViewContext).Content(AngHrefRoute) + href;
+                href = $"{AngHrefPrefix}{href}{AngHrefSuffix}";
+                output.Attributes.SetAttribute("ng-href", href);
+            }
         }
     }
 
@@ -83,7 +115,7 @@ namespace NetCore.Angular.TagHelpers
         private readonly AngularService angularService;
         private readonly AngularServiceOptions options;
 
-        private const string Tag = "img";
+        private const string Tag = "form";
 
         public FormAngularTagHelper(IHtmlGenerator generator, 
                 AngularService angularService, AngularServiceOptions options) 
@@ -115,7 +147,7 @@ namespace NetCore.Angular.TagHelpers
         private readonly AngularService angularService;
         private readonly AngularServiceOptions options;
 
-        private const string Tag = "img";
+        private const string Tag = "input";
 
         public InputAngularTagHelper(IHtmlGenerator generator, 
             AngularService angularService, AngularServiceOptions options) : base(generator)

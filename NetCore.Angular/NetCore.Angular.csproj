@@ -10,9 +10,7 @@
     </Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>
-      - Added extension function to add all services
-      - added destination for strongly typed scope destination
-      - added tag helpers for bind, class, if, show, hide and repeat
+      - added extended tag helpers for a, img, form and input
     </PackageReleaseNotes>
     <PackageTags>netcore mvc angular strongly typed safe tag helpers</PackageTags>
     <!--<PackageIconUrl>http://netcoresimple.azurewebsites.net/content/themes/icon.png</PackageIconUrl>-->
