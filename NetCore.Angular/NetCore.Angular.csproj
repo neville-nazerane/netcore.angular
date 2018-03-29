@@ -11,6 +11,7 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>
       - added extended tag helpers for a, img, form and input
+      - added direct data injection using ang-data
     </PackageReleaseNotes>
     <PackageTags>netcore mvc angular strongly typed safe tag helpers</PackageTags>
     <!--<PackageIconUrl>http://netcoresimple.azurewebsites.net/content/themes/icon.png</PackageIconUrl>-->
