@@ -34,6 +34,11 @@ namespace NetCore.Angular.TagHelpers
         public ModelExpression AngShow { get; set; }
         public ModelExpression AngHide { get; set; }
 
+        public ModelExpression AngData { get; set; }
+
+        public ModelExpression[] All { get; set; }
+
+
         public AngularTagHelper(AngularService angularService, AngularServiceOptions options)
         {
             this.angularService = angularService;

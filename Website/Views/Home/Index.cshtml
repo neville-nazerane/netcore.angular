@@ -3,7 +3,7 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div-angular source="Carousel.GetAll()" destination="Carousels" id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+<div-angular ang-data="Carousels" id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
         <li-angular ang-repeat="Carousels" data-target="#myCarousel" data-slide-to="{{Carousel.Id}}" ang-class="Carousel.ActiveClass"></li-angular>
     </ol>

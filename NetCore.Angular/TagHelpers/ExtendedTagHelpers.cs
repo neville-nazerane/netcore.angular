@@ -46,6 +46,9 @@ namespace NetCore.Angular.TagHelpers
         public string AngSrcRoute { get; set; }
         public ModelExpression AngAlt { get; set; }
 
+        public ModelExpression AngData { get; set; }
+
+
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             this.Process(context, output, Tag, angularService, options);
@@ -95,6 +98,9 @@ namespace NetCore.Angular.TagHelpers
         public string AngHrefRoute { get; set; }
         IUrlHelperFactory UrlHelperFactory { get; }
 
+        public ModelExpression AngData { get; set; }
+
+
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             this.Process(context, output, Tag, angularService, options);
@@ -136,6 +142,9 @@ namespace NetCore.Angular.TagHelpers
         public ModelExpression AngShow { get; set; }
         public ModelExpression AngHide { get; set; }
 
+        public ModelExpression AngData { get; set; }
+
+
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             this.Process(context, output, Tag, angularService, options);
@@ -166,6 +175,9 @@ namespace NetCore.Angular.TagHelpers
         public ModelExpression AngIf { get; set; }
         public ModelExpression AngShow { get; set; }
         public ModelExpression AngHide { get; set; }
+
+        public ModelExpression AngData { get; set; }
+
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

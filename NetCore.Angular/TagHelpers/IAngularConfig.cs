@@ -28,6 +28,8 @@ namespace NetCore.Angular.TagHelpers
         ModelExpression AngShow { get; set; }
         ModelExpression AngHide { get; set; }
 
+        ModelExpression AngData { get; set; }
+
     }
 
     static class AngularConfigExtensions
@@ -37,7 +39,6 @@ namespace NetCore.Angular.TagHelpers
                     string Tag, AngularService angularService, AngularServiceOptions options)
         {
 
-            string uid = Guid.NewGuid().ToString("N");
 
             output.SetNgFor(config.AngBind, "ng-bind")
                   .SetNgFor(config.AngClass, "ng-class")
@@ -56,15 +57,28 @@ namespace NetCore.Angular.TagHelpers
                 output.Attributes.SetAttribute("ng-repeat", repStr);
             }
 
-            if (config.Source != null) angularService.Pairs.Add(uid, config.Source);
-            output.Attributes.SetAttribute("netcore-angular-set", uid);
-            if (config.ScopeDest != null)
+            if (config.AngData != null)
             {
-                output.Attributes.SetAttribute("set-to-scope", config.ScopeDest);
+                string uid = Guid.NewGuid().ToString("N");
+
+                angularService.Pairs.Add(uid, config.AngData.Model);
+                output.Attributes.SetAttribute("netcore-angular-set", uid);
+                output.Attributes.SetAttribute("set-to-scope", config.AngData.Name);
             }
-            else if (config.Destination != null)
+            else
             {
-                output.Attributes.SetAttribute("set-to-scope", config.Destination.Name);
+                string uid = Guid.NewGuid().ToString("N");
+
+                if (config.Source != null) angularService.Pairs.Add(uid, config.Source);
+                output.Attributes.SetAttribute("netcore-angular-set", uid);
+                if (config.ScopeDest != null)
+                {
+                    output.Attributes.SetAttribute("set-to-scope", config.ScopeDest);
+                }
+                else if (config.Destination != null)
+                {
+                    output.Attributes.SetAttribute("set-to-scope", config.Destination.Name);
+                }
             }
             output.TagName = Tag;
         }
