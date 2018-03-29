@@ -4,9 +4,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NetCore.Angular.Services;
+using Website.Models;
+using Website.Services;
 
 namespace Website
 {
@@ -23,8 +26,15 @@ namespace Website
         public void ConfigureServices(IServiceCollection services)
         {
 
+            services.AddDbContext<BloggingContext>(config => 
+                                    config.UseSqlite("Data Source=blogging.db"));
+
             services.AddNetCoreAngular();
+
+            services.AddTransient<BloggingProvider>();
+
             services.AddMvc();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

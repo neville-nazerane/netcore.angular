@@ -22,13 +22,18 @@ namespace NetCore.Angular.Services
 
         internal IHtmlContent GenerateScripts()
         {
-
             string Scripts = string.Join(@",\n",
-                        Pairs.Select(p => $"'{p.Key}' : {html.Raw(JsonConvert.SerializeObject(p.Value))}")
+                        Pairs.Select(p => $"'{p.Key}' : {html.Raw(formatObject(p.Value))}")
                 );
-
             return html.Raw($"var netcore_angular_pairs = {{{Scripts}}};");
         }
+
+        string formatObject(object obj) 
+            => JsonConvert.SerializeObject(obj, Formatting.None,
+                        new JsonSerializerSettings()
+                        {
+                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                        });
 
     }
 }

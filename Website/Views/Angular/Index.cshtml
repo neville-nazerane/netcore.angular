@@ -1,0 +1,27 @@
+﻿@model AngularBloggingContext
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Data from angular</h2>
+
+
+<div-angular ang-data="Blogs">
+    <div-angular class="well" ang-repeat="Blogs">
+        <h3-angular ang-bind="Blog.Url"></h3-angular>
+
+        <div class="panel-group">
+            <div-angular ang-repeat="Blog.Posts" ang-repeat-to="Post" class="panel panel-primary">
+                <div class="panel-heading">
+                    <div-angular ang-bind="Post.Title"></div-angular>
+                </div>
+                <div class="panel-body">
+                    <div-angular ang-bind="Post.Content"></div-angular>
+                </div>
+            </div-angular>
+        </div>
+
+    </div-angular>
+</div-angular>
+
+<script-angular></script-angular>
