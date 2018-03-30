@@ -22,5 +22,11 @@ namespace Website.Controllers
                 Blogs = context.Blogs.Include(b => b.Posts)
             });
 
+        public IActionResult AddBlog(Blog blog)
+        {
+            context.Add(blog);
+            context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
     }
 }

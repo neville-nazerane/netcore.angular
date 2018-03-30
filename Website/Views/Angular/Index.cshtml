@@ -18,10 +18,15 @@
                 <div class="panel-body">
                     <div-angular ang-bind="Post.Content"></div-angular>
                 </div>
+
             </div-angular>
         </div>
 
     </div-angular>
 </div-angular>
 
-<script-angular></script-angular>
+@Html.Partial("addBlog", new Blog())
+
+@section scripts{ 
+    <script-angular></script-angular>
+}
