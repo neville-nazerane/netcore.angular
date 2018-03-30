@@ -22,11 +22,16 @@ namespace Website.Controllers
                 Blogs = context.Blogs.Include(b => b.Posts)
             });
 
-        public IActionResult AddBlog(Blog blog)
+        [HttpPost]
+        public IActionResult AddBlog([FromBody]Blog blog)
         {
-            context.Add(blog);
-            context.SaveChanges();
-            return RedirectToAction(nameof(Index));
+            if (ModelState.IsValid)
+            {
+                context.Add(blog);
+                context.SaveChanges();
+                return Ok("done");
+            }
+            else return BadRequest(new { noo = "search your feelings", know = 4, blog.Url });
         }
     }
 }

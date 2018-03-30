@@ -4,7 +4,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="AddBlog">
+        <form asp-action="AddBlog"  ang-submit="">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Url" class="control-label"></label>
@@ -17,3 +17,13 @@
         </form>
     </div>
 </div>
+
+<script>
+    function another(a, b, c, d, e) {
+        console.log(a, b, c, d, e);
+    }
+
+    function those(a, b, c, d) {
+        console.log(a, b, c, d);
+    }
+</script>

@@ -3,6 +3,9 @@
     ViewData["Title"] = "Index";
 }
 
+@Html.Partial("addBlog", new Blog())
+
+
 <h2>Data from angular</h2>
 
 
@@ -25,8 +28,8 @@
     </div-angular>
 </div-angular>
 
-@Html.Partial("addBlog", new Blog())
 
-@section scripts{ 
+@section scripts{
     <script-angular></script-angular>
+    @Html.Partial("_ValidationScriptsPartial")
 }
