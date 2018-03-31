@@ -58,7 +58,7 @@ namespace NetCore.Angular.TagHelpers
                   .SetNgFor(config.AngIdentifierScope, "target-scope");
 
             if (config.AngIdentifier != null)
-                output.Attributes.SetAttribute("root-key", config.AngIdentifier);
+                output.Attributes.SetAttribute("listening-root-key", config.AngIdentifier);
 
             if (config.AngRepeat != null)
             {
@@ -83,8 +83,12 @@ namespace NetCore.Angular.TagHelpers
             {
                 string uid = Guid.NewGuid().ToString("N");
 
-                if (config.Source != null) angularService.Pairs.Add(uid, config.Source);
-                output.Attributes.SetAttribute("netcore-angular-set", uid);
+                if (config.Source != null)
+                {
+                    angularService.Pairs.Add(uid, config.Source);
+                    output.Attributes.SetAttribute("netcore-angular-set", uid);
+                }
+
                 if (config.ScopeDest != null)
                 {
                     output.Attributes.SetAttribute("set-to-scope", config.ScopeDest);

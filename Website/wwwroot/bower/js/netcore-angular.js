@@ -32,13 +32,13 @@ var netcore_angular_formDefaults = {
                 }
             };
         })
-        .directive('rootKey', function () {
+        .directive('listeningRootKey', function () {
             return {
                 scope: true,
                 restrict: 'A',
                 controller: function ($scope, $rootScope, $attrs) {
-                    if (typeof ($attrs.rootKey) !== "undefined") {
-                        $rootScope.$watch("scopeAccess." + $attrs.rootKey, function (val) {
+                    if (typeof ($attrs.listeningRootKey) !== "undefined") {
+                        $rootScope.$watch("scopeAccess." + $attrs.listeningRootKey, function (val) {
                             if (typeof (val) === "undefined") return;
                             var scopeKey = null;
                             if (typeof ($attrs.targetScope) !== "undefined") {
@@ -82,6 +82,8 @@ var netcore_angular_formDefaults = {
                                             });
                                         }
                                     }
+                                    
+                                    $element[0].reset();
                                 }, function (res) {
                                     formDefaults.onServerFail(res);
                                     formDefaults.onFail(res);
@@ -109,6 +111,9 @@ var netcore_angular_formDefaults = {
         }
         else if (meta.action === "set") {
             $scope[scopeKey] = meta.data;
+        }
+        else if (meta.action === "edit") {
+            $scope[scopeKey][meta.index] = meta.data;
         }
     }
 
