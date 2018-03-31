@@ -1,17 +1,28 @@
 ﻿@model AngularBloggingContext
+
+
 @{
     ViewData["Title"] = "Index";
 }
 
-@Html.Partial("addBlog", new Blog())
+<h4>Add Blog</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form-angular asp-action="AddBlog"
+                   ang-on-success-append="Blogs" ang-on-success-append-external="main" >
+            @Html.Partial("addBlog", new Blog())
+        </form-angular>
+    </div>
+</div>
 
 
 <h2>Data from angular</h2>
 
 
-<div-angular ang-data="Blogs">
+<div-angular ang-data="Blogs" ang-identifier="main">
     <div-angular class="well" ang-repeat="Blogs">
-        <h3-angular ang-bind="Blog.Url"></h3-angular>
+        <h3-angular ng-bind="Blog.Url"></h3-angular>
 
         <div class="panel-group">
             <div-angular ang-repeat="Blog.Posts" ang-repeat-to="Post" class="panel panel-primary">

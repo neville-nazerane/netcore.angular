@@ -159,11 +159,15 @@ namespace NetCore.Angular.TagHelpers
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
 
+            if (AngOnSuccessAppend != null)
+                output.Attributes.SetAttribute("ang-submit", "");
+
             output.SetNgFor(AngOnSuccessAppend, "on-success-append");
             if (AngOnSuccessAppendExternal != null)
                 output.Attributes.SetAttribute("on-success-append-external", AngOnSuccessAppendExternal);
 
             this.Process(context, output, Tag, angularService, options);
+            base.Process(context, output);
         }
     }
 

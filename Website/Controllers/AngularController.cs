@@ -29,7 +29,7 @@ namespace Website.Controllers
             {
                 context.Add(blog);
                 context.SaveChanges();
-                return Ok("done");
+                return Ok(blog);
             }
             else return BadRequest(new { noo = "search your feelings", know = 4, blog.Url });
         }

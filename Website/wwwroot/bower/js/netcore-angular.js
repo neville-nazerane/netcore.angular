@@ -32,13 +32,14 @@ var netcore_angular_formDefaults = {
                 }
             };
         })
-        .directive('listenForScope', function () {
+        .directive('rootKey', function () {
             return {
                 scope: true,
                 restrict: 'A',
                 controller: function ($scope, $rootScope, $attrs) {
                     if (typeof ($attrs.rootKey) !== "undefined") {
                         $rootScope.$watch("scopeAccess." + $attrs.rootKey, function (val) {
+                            if (typeof (val) === "undefined") return;
                             var scopeKey = null;
                             if (typeof ($attrs.targetScope) !== "undefined") {
                                 scopeKey = $attrs.targetScope;
@@ -65,7 +66,6 @@ var netcore_angular_formDefaults = {
                                 .then(function (res) {
                                     formDefaults.onSuccess(res);
                                     $rootScope.formDefaults.onSuccess(res);
-
                                     if (typeof ($attrs.onSuccessAppend) !== "undefined") {
                                         if (typeof ($attrs.onSuccessAppendExternal) !== "undefined") {
                                             // external scope
@@ -81,7 +81,7 @@ var netcore_angular_formDefaults = {
                                                 data: res.data
                                             });
                                         }
-                                    
+                                    }
                                 }, function (res) {
                                     formDefaults.onServerFail(res);
                                     formDefaults.onFail(res);
@@ -102,9 +102,10 @@ var netcore_angular_formDefaults = {
 
     function actionToScope($scope, scopeKey, meta) {
         if (meta.action === "push") {
-            if (typeof ($scope[scopeKey]) !== "undefined")
+            if (typeof ($scope[scopeKey]) === "undefined")
                 $scope[scopeKey] = [];
             $scope[scopeKey].push(meta.data);
+            console.log(3, $scope[scopeKey]);
         }
         else if (meta.action === "set") {
             $scope[scopeKey] = meta.data;

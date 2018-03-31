@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NetCore.Angular.Services;
+using Newtonsoft.Json.Serialization;
 using Website.Models;
 using Website.Services;
 
@@ -31,9 +32,11 @@ namespace Website
 
             services.AddNetCoreAngular();
 
-            services.AddTransient<BloggingProvider>();
+            services.AddTransient<BloggingProvider>()
+                    .AddTransient<AngularValues>();
 
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver()); ;
 
         }
 
