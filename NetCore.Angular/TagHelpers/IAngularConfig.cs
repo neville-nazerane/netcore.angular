@@ -30,6 +30,16 @@ namespace NetCore.Angular.TagHelpers
 
         ModelExpression AngData { get; set; }
 
+        /// <summary>
+        /// unique identifier can be used to refrence to DOM
+        /// </summary>
+        string AngIdentifier { get; set; }
+
+        /// <summary>
+        /// Key for the scope that identifier will be mapped to
+        /// </summary>
+        ModelExpression AngIdentifierScope { get; set; }
+
     }
 
     static class AngularConfigExtensions
@@ -44,7 +54,11 @@ namespace NetCore.Angular.TagHelpers
                   .SetNgFor(config.AngClass, "ng-class")
                   .SetNgFor(config.AngIf, "ng-if")
                   .SetNgFor(config.AngShow, "ng-show")
-                  .SetNgFor(config.AngHide, "ng-hide");
+                  .SetNgFor(config.AngHide, "ng-hide")
+                  .SetNgFor(config.AngIdentifierScope, "target-scope");
+
+            if (config.AngIdentifier != null)
+                output.Attributes.SetAttribute("root-key", config.AngIdentifier);
 
             if (config.AngRepeat != null)
             {

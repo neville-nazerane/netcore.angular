@@ -36,6 +36,8 @@ namespace NetCore.Angular.TagHelpers
 
         public ModelExpression AngData { get; set; }
 
+        public string AngIdentifier { get; set; }
+        public ModelExpression AngIdentifierScope { get; set; }
 
         public AngularTagHelper(AngularService angularService, AngularServiceOptions options)
         {

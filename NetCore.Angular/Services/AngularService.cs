@@ -14,6 +14,8 @@ namespace NetCore.Angular.Services
 
         internal Dictionary<string, object> Pairs { get; set; }
 
+        internal Dictionary<string, string> RootKeys { get; set; }
+
         public AngularService(IHtmlHelper html)
         {
             Pairs = new Dictionary<string, object>();

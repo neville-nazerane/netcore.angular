@@ -48,6 +48,9 @@ namespace NetCore.Angular.TagHelpers
 
         public ModelExpression AngData { get; set; }
 
+        public string AngIdentifier { get; set; }
+        public ModelExpression AngIdentifierScope { get; set; }
+
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -100,6 +103,9 @@ namespace NetCore.Angular.TagHelpers
 
         public ModelExpression AngData { get; set; }
 
+        public string AngIdentifier { get; set; }
+        public ModelExpression AngIdentifierScope { get; set; }
+
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
@@ -144,9 +150,19 @@ namespace NetCore.Angular.TagHelpers
 
         public ModelExpression AngData { get; set; }
 
+        public string AngIdentifier { get; set; }
+        public ModelExpression AngIdentifierScope { get; set; }
+
+        public ModelExpression AngOnSuccessAppend { get; set; }
+        public string AngOnSuccessAppendExternal { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
+
+            output.SetNgFor(AngOnSuccessAppend, "on-success-append");
+            if (AngOnSuccessAppendExternal != null)
+                output.Attributes.SetAttribute("on-success-append-external", AngOnSuccessAppendExternal);
+
             this.Process(context, output, Tag, angularService, options);
         }
     }
@@ -177,6 +193,9 @@ namespace NetCore.Angular.TagHelpers
         public ModelExpression AngHide { get; set; }
 
         public ModelExpression AngData { get; set; }
+
+        public string AngIdentifier { get; set; }
+        public ModelExpression AngIdentifierScope { get; set; }
 
 
         public override void Process(TagHelperContext context, TagHelperOutput output)

@@ -18,6 +18,7 @@ var netcore_angular_formDefaults = {
                 onClientFail: function () { }, // client side failure
                 onServerFail: function (result) { } // server side failure
             };
+            $rootScope.scopeAccess = {};
         })
         .directive('setToScope', function () {
             return {
@@ -36,16 +37,17 @@ var netcore_angular_formDefaults = {
                 scope: true,
                 restrict: 'A',
                 controller: function ($scope, $rootScope, $attrs) {
-                    if (typeof ($attrs.rootKey) != "undefined" && typeof ($attrs.targetScope) != "undefined") {
-                        $rootScope.$watch($attrs.rootKey, function (val) {
-                            if (val.action == "push") {
-                                if (typeof ($scope[$attrs.targetScope]) == "undefined")
-                                    $scope[$attrs.targetScope] = [];
-                                $scope[$attrs.targetScope].push(val.data);
+                    if (typeof ($attrs.rootKey) !== "undefined") {
+                        $rootScope.$watch("scopeAccess." + $attrs.rootKey, function (val) {
+                            var scopeKey = null;
+                            if (typeof ($attrs.targetScope) !== "undefined") {
+                                scopeKey = $attrs.targetScope;
                             }
-                            else if (val.action == "set") {
-                                $scope[$attrs.targetScope] = val.data;
+                            else if (typeof (val.scopeKey) !== "undefined") {
+                                scopeKey = val.scopeKey;
                             }
+                            else return;
+                            actionToScope($scope, scopeKey, val);
                         });
                     }
                 }
@@ -63,6 +65,23 @@ var netcore_angular_formDefaults = {
                                 .then(function (res) {
                                     formDefaults.onSuccess(res);
                                     $rootScope.formDefaults.onSuccess(res);
+
+                                    if (typeof ($attrs.onSuccessAppend) !== "undefined") {
+                                        if (typeof ($attrs.onSuccessAppendExternal) !== "undefined") {
+                                            // external scope
+                                            $rootScope.scopeAccess[$attrs.onSuccessAppendExternal] = {
+                                                action: "push",
+                                                scopeKey: $attrs.onSuccessAppend,
+                                                data: res.data
+                                            };
+                                        }
+                                        else {
+                                            actionToScope($scope, $attrs.onSuccessAppend, {
+                                                action: "push",
+                                                data: res.data
+                                            });
+                                        }
+                                    
                                 }, function (res) {
                                     formDefaults.onServerFail(res);
                                     formDefaults.onFail(res);
@@ -80,6 +99,18 @@ var netcore_angular_formDefaults = {
                 }
             }
         });
+
+    function actionToScope($scope, scopeKey, meta) {
+        if (meta.action === "push") {
+            if (typeof ($scope[scopeKey]) !== "undefined")
+                $scope[scopeKey] = [];
+            $scope[scopeKey].push(meta.data);
+        }
+        else if (meta.action === "set") {
+            $scope[scopeKey] = meta.data;
+        }
+    }
+
 
 })();
 
