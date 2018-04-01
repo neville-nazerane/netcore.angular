@@ -165,12 +165,11 @@ namespace NetCore.Angular.TagHelpers
         public string AngIdentifier { get; set; }
         public ModelExpression AngIdentifierScope { get; set; }
 
-        public ModelExpression AngOnSuccessAppend { get; set; }
-        public string AngOnSuccessAppendExternal { get; set; }
+        public ModelExpression OnSuccessAppend { get; set; }
+        public string OnSuccessAppendExternal { get; set; }
 
-        public ModelExpression AngOnSuccessEdit { get; set; }
-        public string AngOnSuccessEditExternal { get; set; }
-
+        public ModelExpression OnSuccessEdit { get; set; }
+        public string OnSuccessEditExternal { get; set; }
         public string OnSuccessEditIndex { get; set; }
 
         public string Swapable { get; set; }
@@ -182,21 +181,21 @@ namespace NetCore.Angular.TagHelpers
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
 
-            if (AngOnSuccessAppend != null || AngOnSuccessEdit!= null)
+            if (OnSuccessAppend != null || OnSuccessEdit!= null)
                 output.Attributes.SetAttribute("ang-submit", "");
 
-            output.SetNgFor(AngOnSuccessAppend, "on-success-append");
-            if (AngOnSuccessAppendExternal != null)
-                output.Attributes.SetAttribute("on-success-append-external", AngOnSuccessAppendExternal);
+            output.SetNgFor(OnSuccessAppend, "on-success-append");
+            if (OnSuccessAppendExternal != null)
+                output.Attributes.SetAttribute("on-success-append-external", OnSuccessAppendExternal);
 
-            if (AngOnSuccessEdit != null)
+            if (OnSuccessEdit != null)
             {
-                output.SetNgFor(AngOnSuccessEdit, "on-success-edit");
+                output.SetNgFor(OnSuccessEdit, "on-success-edit");
                 output.Attributes.SetAttribute("on-success-edit-index", OnSuccessEditIndex ?? "$index");
             }
 
-            if (AngOnSuccessEditExternal != null)
-                output.Attributes.SetAttribute("on-success-edit-external", AngOnSuccessEditExternal);
+            if (OnSuccessEditExternal != null)
+                output.Attributes.SetAttribute("on-success-edit-external", OnSuccessEditExternal);
 
             this.Process(context, output, Tag, angularService, options);
             base.Process(context, output);

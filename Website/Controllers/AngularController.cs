@@ -22,6 +22,8 @@ namespace Website.Controllers
                 Blogs = context.Blogs.Include(b => b.Posts)
             });
 
+        public IActionResult V2() => View();
+
         [HttpPost]
         public IActionResult AddBlog([FromBody]Blog blog)
         {
@@ -31,11 +33,23 @@ namespace Website.Controllers
                 context.SaveChanges();
                 return Ok(blog);
             }
-            else return BadRequest(new { noo = "search your feelings", know = 4, blog.Url });
+            else return BadRequest();
         }
 
         [HttpGet]
         public IActionResult AddPost(int blogID)
             => PartialView(new Post { BlogId = blogID });
+
+        [HttpPost]
+        public IActionResult AddPost([FromBody]Post post)
+        {
+            if (ModelState.IsValid)
+            {
+                context.Add(post);
+                context.SaveChanges();
+                return Ok(post);
+            }
+            return BadRequest();
+        }
     }
 }

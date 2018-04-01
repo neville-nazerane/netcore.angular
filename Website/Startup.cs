@@ -33,7 +33,8 @@ namespace Website
             services.AddNetCoreAngular();
 
             services.AddTransient<BloggingProvider>()
-                    .AddTransient<AngularValues>();
+                    .AddTransient<AngularValues>()
+                    .AddTransient<IdAble>();
 
             services.AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver()); ;

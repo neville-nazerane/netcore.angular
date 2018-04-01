@@ -73,7 +73,6 @@ var netcore_angular_formDefaults = {
                 scope: true,
                 restrict: 'A',
                 controller: function ($scope, $attrs, $http, $element) {
-
                     $scope.loadContent = function () {
                         $http.get($attrs.loadOnSwap)
                             .then(function (res) {
@@ -117,7 +116,8 @@ var netcore_angular_formDefaults = {
                 restrict: 'A',
                 controller: function ($scope, $rootScope, $attrs) {
                     if (typeof ($attrs.listeningRootKey) !== "undefined") {
-                        $rootScope.$watch("scopeAccess." + $attrs.listeningRootKey, function (val) {
+
+                        $rootScope.$watch("scopeAccess." + $scope.$eval($attrs.listeningRootKey), function (val) {
                             if (typeof (val) === "undefined") return;
                             var scopeKey = null;
                             if (typeof ($attrs.targetScope) !== "undefined") {
@@ -201,10 +201,9 @@ var netcore_angular_formDefaults = {
 
     function actionToScope($scope, scopeKey, meta) {
         if (meta.action === "push") {
-            if (typeof ($scope[scopeKey]) === "undefined")
-                $scope[scopeKey] = [];
-            $scope[scopeKey].push(meta.data);
-            console.log(3, $scope[scopeKey]);
+            //if (typeof ($scope[scopeKey]) === "undefined")
+            //    $scope[scopeKey] = [];
+            fetchObj($scope, scopeKey).push(meta.data);
         }
         else if (meta.action === "set") {
             $scope[scopeKey] = meta.data;
@@ -214,12 +213,20 @@ var netcore_angular_formDefaults = {
         }
     }
 
+    function fetchObj(obj, key) {
+        var curr = obj;
+        key.split(".").forEach(function (k) {
+            if (typeof (curr) === "undefined") return;
+            curr = curr[k];
+        });
+        return curr;
+    }
+
 
 })();
 
 (function ($) {
-
-
+    
     $.fn.keyValArray = function () {
         var result = {};
         $.each($(this).serializeArray(), function () {

@@ -34,6 +34,7 @@ namespace NetCore.Angular.TagHelpers
         /// unique identifier can be used to refrence to DOM
         /// </summary>
         string AngIdentifier { get; set; }
+        //string AngRepeatIdentifier { get; set; }
 
         /// <summary>
         /// Key for the scope that identifier will be mapped to
@@ -69,6 +70,8 @@ namespace NetCore.Angular.TagHelpers
 
             if (config.AngIdentifier != null)
                 output.Attributes.SetAttribute("listening-root-key", config.AngIdentifier);
+            //if (config.AngRepeatIdentifier != null)
+            //    output.Attributes.SetAttribute("listening-root-key", config.AngRepeatIdentifier + "{{$index}}");
 
             if (config.AngRepeat != null)
             {
