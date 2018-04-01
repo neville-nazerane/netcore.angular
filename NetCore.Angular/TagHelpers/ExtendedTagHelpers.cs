@@ -51,10 +51,14 @@ namespace NetCore.Angular.TagHelpers
         public string AngIdentifier { get; set; }
         public ModelExpression AngIdentifierScope { get; set; }
 
+        public string Swapable { get; set; }
+        public int? SwapIndex { get; set; }
+        public string LoadOnSwap { get; set; }
+
+
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            this.Process(context, output, Tag, angularService, options);
             if (AngAlt != null)
                 output.Attributes.SetAttribute("alt", $"{{{{{AngAlt.Name}}}}}");
             if (AngSrc != null)
@@ -65,6 +69,8 @@ namespace NetCore.Angular.TagHelpers
                 src = $"{AngSrcPrefix}{src}{AngSrcSuffix}";
                 output.Attributes.SetAttribute("ng-src", src);
             }
+            this.Process(context, output, Tag, angularService, options);
+            //base.Process(context, output);
         }
     }
 
@@ -106,10 +112,14 @@ namespace NetCore.Angular.TagHelpers
         public string AngIdentifier { get; set; }
         public ModelExpression AngIdentifierScope { get; set; }
 
+        public string Swapable { get; set; }
+        public int? SwapIndex { get; set; }
+        public string LoadOnSwap { get; set; }
+
+
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-            this.Process(context, output, Tag, angularService, options);
             if (AngHref != null)
             {
                 string href = "{{" + AngHref.Name + "}}";
@@ -119,6 +129,8 @@ namespace NetCore.Angular.TagHelpers
                 href = $"{AngHrefPrefix}{href}{AngHrefSuffix}";
                 output.Attributes.SetAttribute("ng-href", href);
             }
+            this.Process(context, output, Tag, angularService, options);
+            base.Process(context, output);
         }
     }
 
@@ -156,15 +168,35 @@ namespace NetCore.Angular.TagHelpers
         public ModelExpression AngOnSuccessAppend { get; set; }
         public string AngOnSuccessAppendExternal { get; set; }
 
+        public ModelExpression AngOnSuccessEdit { get; set; }
+        public string AngOnSuccessEditExternal { get; set; }
+
+        public string OnSuccessEditIndex { get; set; }
+
+        public string Swapable { get; set; }
+        public int? SwapIndex { get; set; }
+        public string LoadOnSwap { get; set; }
+
+
+
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
 
-            if (AngOnSuccessAppend != null)
+            if (AngOnSuccessAppend != null || AngOnSuccessEdit!= null)
                 output.Attributes.SetAttribute("ang-submit", "");
 
             output.SetNgFor(AngOnSuccessAppend, "on-success-append");
             if (AngOnSuccessAppendExternal != null)
                 output.Attributes.SetAttribute("on-success-append-external", AngOnSuccessAppendExternal);
+
+            if (AngOnSuccessEdit != null)
+            {
+                output.SetNgFor(AngOnSuccessEdit, "on-success-edit");
+                output.Attributes.SetAttribute("on-success-edit-index", OnSuccessEditIndex ?? "$index");
+            }
+
+            if (AngOnSuccessEditExternal != null)
+                output.Attributes.SetAttribute("on-success-edit-external", AngOnSuccessEditExternal);
 
             this.Process(context, output, Tag, angularService, options);
             base.Process(context, output);
@@ -201,10 +233,15 @@ namespace NetCore.Angular.TagHelpers
         public string AngIdentifier { get; set; }
         public ModelExpression AngIdentifierScope { get; set; }
 
+        public string Swapable { get; set; }
+        public int? SwapIndex { get; set; }
+        public string LoadOnSwap { get; set; }
+
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             this.Process(context, output, Tag, angularService, options);
+            base.Process(context, output);
         }
     }
 

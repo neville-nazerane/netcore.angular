@@ -20,6 +20,85 @@ var netcore_angular_formDefaults = {
             };
             $rootScope.scopeAccess = {};
         })
+        .directive('swapable', function () {
+            return {
+                scope: true,
+                restrict: 'A',
+                controller: function ($scope) {
+
+                    $scope.swapIndex = 0;
+
+                    $scope.swap = function () {
+                        $scope.swapIndex = 1 - $scope.swapIndex;
+                    };
+                    $scope.swapTo = function (index) {
+                        $scope.swapIndex = index;
+                    }
+                }
+            }
+        })
+        .directive('swapIndex', function () {
+            return {
+                scope: true,
+                restrict: 'A',
+                controller: function ($scope, $attrs, $element) {
+
+                    $scope.swappedIn = false;
+
+                    $scope.$parent.$watch('swapIndex', function (val) {
+                        if (val === $attrs.swapIndex) {
+                            $scope.swappedIn = true;
+                            $element.show();
+                            if (typeof ($attrs.loadOnSwap) !== "undefined") {
+                                $scope.loadContent();
+                            }
+                        }
+                        else {
+                            $scope.swappedIn = false;
+                            $element.hide()
+                            if (typeof ($attrs.loadOnSwap) !== "undefined") {
+                                $scope.unloadContent();
+                            }
+                        }
+                    });
+
+                    $scope.swap = function () {
+                        $scope.$parent.swap();
+                    };
+                }
+            };
+        })
+        .directive('loadOnSwap', function () {
+            return {
+                scope: true,
+                restrict: 'A',
+                controller: function ($scope, $attrs, $http, $element) {
+
+                    $scope.loadContent = function () {
+                        $http.get($attrs.loadOnSwap)
+                            .then(function (res) {
+                                $element.html(res.data);
+                            },
+                            function (e) {
+                                console.error("unable to load content from " + $attrs.loadOnSwap, e);
+                            });
+                    };
+
+                    $scope.unloadContent = function () {
+                        $element.html('');
+                    };
+
+                    $scope.$parent.$watch('swappedIn', function (swap) {
+                        if (typeof (swap) !== "undefined") {
+                            if (swap) $scope.loadContent();
+                            else $scope.unloadContent();
+                        }
+                    });
+
+                }
+            }
+        })
+
         .directive('setToScope', function () {
             return {
                 scope: true,
@@ -82,7 +161,25 @@ var netcore_angular_formDefaults = {
                                             });
                                         }
                                     }
-                                    
+                                    if (typeof ($attrs.onSuccessEdit) !== "undefined"
+                                                            && typeof ($attrs.onSuccessEditIndex) !== "undefined") {
+                                        if (typeof ($attrs.onSuccessEditExternal) !== "undefined") {
+                                            // external scope
+                                            $rootScope.scopeAccess[$attrs.onSuccessEditExternal] = {
+                                                action: "edit",
+                                                scopeKey: $attrs.onSuccessEdit,
+                                                index: $attrs.onSuccessEditIndex,
+                                                data: res.data
+                                            };
+                                        }
+                                        else {
+                                            actionToScope($scope, $attrs.onSuccessEdit, {
+                                                action: "edit",
+                                                index: $attrs.onSuccessEditIndex,
+                                                data: res.data
+                                            });
+                                        }
+                                    }
                                     $element[0].reset();
                                 }, function (res) {
                                     formDefaults.onServerFail(res);

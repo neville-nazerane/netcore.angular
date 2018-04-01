@@ -40,6 +40,10 @@ namespace NetCore.Angular.TagHelpers
         /// </summary>
         ModelExpression AngIdentifierScope { get; set; }
 
+        string Swapable { get; set; }
+        int? SwapIndex { get; set; }
+        string LoadOnSwap { get; set; }
+        
     }
 
     static class AngularConfigExtensions
@@ -48,14 +52,20 @@ namespace NetCore.Angular.TagHelpers
         internal static void Process(this IAngularConfig config, TagHelperContext context, TagHelperOutput output,
                     string Tag, AngularService angularService, AngularServiceOptions options)
         {
-
-
+            
             output.SetNgFor(config.AngBind, "ng-bind")
                   .SetNgFor(config.AngClass, "ng-class")
                   .SetNgFor(config.AngIf, "ng-if")
                   .SetNgFor(config.AngShow, "ng-show")
                   .SetNgFor(config.AngHide, "ng-hide")
                   .SetNgFor(config.AngIdentifierScope, "target-scope");
+
+            if (config.Swapable != null)
+                output.Attributes.SetAttribute("swapable", null);
+            if (config.SwapIndex != null)
+                output.Attributes.SetAttribute("Swap-index", config.SwapIndex);
+            if (config.LoadOnSwap != null)
+                output.Attributes.SetAttribute("load-on-swap", config.LoadOnSwap);
 
             if (config.AngIdentifier != null)
                 output.Attributes.SetAttribute("listening-root-key", config.AngIdentifier);

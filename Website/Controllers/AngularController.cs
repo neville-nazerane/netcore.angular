@@ -33,5 +33,9 @@ namespace Website.Controllers
             }
             else return BadRequest(new { noo = "search your feelings", know = 4, blog.Url });
         }
+
+        [HttpGet]
+        public IActionResult AddPost(int blogID)
+            => PartialView(new Post { BlogId = blogID });
     }
 }

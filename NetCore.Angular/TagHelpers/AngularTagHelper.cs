@@ -39,6 +39,10 @@ namespace NetCore.Angular.TagHelpers
         public string AngIdentifier { get; set; }
         public ModelExpression AngIdentifierScope { get; set; }
 
+        public string Swapable { get; set; }
+        public int? SwapIndex { get; set; }
+        public string LoadOnSwap { get; set; }
+
         public AngularTagHelper(AngularService angularService, AngularServiceOptions options)
         {
             this.angularService = angularService;
@@ -58,6 +62,16 @@ namespace NetCore.Angular.TagHelpers
         }
 
         internal override string Tag => "div";
+    }
+
+    public class ButtonAngularTagHelper : AngularTagHelper
+    {
+        public ButtonAngularTagHelper(AngularService angularService, AngularServiceOptions options)
+            : base(angularService, options)
+        {
+        }
+
+        internal override string Tag => "Button";
     }
 
     public class TableAngularTagHelper : AngularTagHelper
