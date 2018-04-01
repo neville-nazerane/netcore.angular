@@ -9,10 +9,10 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form-angular asp-action="AddBlog"
+        <form-ang asp-action="AddBlog"
                    ang-on-success-append="Blogs" ang-on-success-append-external="main" >
             @Html.Partial("addBlog", new Blog())
-        </form-angular>
+        </form-ang>
     </div>
 </div>
 
@@ -20,29 +20,33 @@
 <h2>Data from angular</h2>
 
 
-<div-angular ang-data="Blogs" ang-identifier="main">
-    <div-angular class="well" ang-repeat="Blogs">
-        <h3-angular ng-bind="Blog.Url"></h3-angular>
+<div-ang ang-data="Blogs" ang-identifier="main">
+    <div-ang class="well" ang-repeat="Blogs">
+        <h3-ang ng-bind="Blog.Url"></h3-ang>
 
         <div class="panel-group">
-            <div-angular ang-repeat="Blog.Posts" ang-repeat-to="Post" class="panel panel-primary">
+            <div-ang ang-repeat="Blog.Posts" ang-repeat-to="Post" class="panel panel-primary">
                 <div class="panel-heading">
-                    <div-angular ang-bind="Post.Title"></div-angular>
+                    <div-ang ang-bind="Post.Title"></div-ang>
                 </div>
                 <div class="panel-body">
-                    <div-angular ang-bind="Post.Content"></div-angular>
+                    <div-ang ang-bind="Post.Content"></div-ang>
                 </div>
-            </div-angular>
+            </div-ang>
         </div>
-        <div>
-            <button class="btn btn-success">Add Post</button>
-        </div>
+        <div-ang swapable="">
+            <button-ang swap-index="0" class="btn btn-success" ng-click="swap()">Add Post</button-ang>
+            <div-ang swap-index="1">
+                <div>Showing</div>
+                <button ng-click="swap()" class="btn btn-warning">Cancel</button>
+            </div-ang>
+        </div-ang>
 
-    </div-angular>
-</div-angular>
+    </div-ang>
+</div-ang>
 
 
 @section scripts{
-    <script-angular></script-angular>
+    <script-ang></script-ang>
     @Html.Partial("_ValidationScriptsPartial")
 }

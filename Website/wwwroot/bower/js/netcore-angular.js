@@ -46,7 +46,7 @@ var netcore_angular_formDefaults = {
                     $scope.swappedIn = false;
 
                     $scope.$parent.$watch('swapIndex', function (val) {
-                        if (val === $attrs.swapIndex) {
+                        if (val == $attrs.swapIndex) {
                             $scope.swappedIn = true;
                             $element.show();
                             if (typeof ($attrs.loadOnSwap) !== "undefined") {

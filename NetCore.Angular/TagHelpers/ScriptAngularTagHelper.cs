@@ -6,11 +6,11 @@ using System.Text;
 
 namespace NetCore.Angular.TagHelpers
 {
-    public class ScriptAngularTagHelper : TagHelper
+    public class ScriptAngTagHelper : TagHelper
     {
         private readonly AngularService angularService;
 
-        public ScriptAngularTagHelper(AngularService angularService)
+        public ScriptAngTagHelper(AngularService angularService)
         {
             this.angularService = angularService;
         }

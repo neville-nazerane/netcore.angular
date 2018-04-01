@@ -13,14 +13,14 @@ using System.Text.Encodings.Web;
 namespace NetCore.Angular.TagHelpers
 {
 
-    public class ImgAngularTagHelper : ImageTagHelper, IAngularConfig
+    public class ImgAngTagHelper : ImageTagHelper, IAngularConfig
     {
         private readonly AngularService angularService;
         private readonly AngularServiceOptions options;
 
         private const string Tag = "img";
 
-        public ImgAngularTagHelper(IHostingEnvironment hostingEnvironment, IMemoryCache cache, 
+        public ImgAngTagHelper(IHostingEnvironment hostingEnvironment, IMemoryCache cache, 
                         HtmlEncoder htmlEncoder, IUrlHelperFactory urlHelperFactory,
                         AngularService angularService, AngularServiceOptions options) 
             : base(hostingEnvironment, cache, htmlEncoder, urlHelperFactory)
@@ -74,14 +74,14 @@ namespace NetCore.Angular.TagHelpers
         }
     }
 
-    public class AAngularTagHelper : AnchorTagHelper, IAngularConfig
+    public class AAngTagHelper : AnchorTagHelper, IAngularConfig
     {
         private readonly AngularService angularService;
         private readonly AngularServiceOptions options;
 
         private const string Tag = "a";
 
-        public AAngularTagHelper(IHtmlGenerator generator, IUrlHelperFactory urlHelperFactory,
+        public AAngTagHelper(IHtmlGenerator generator, IUrlHelperFactory urlHelperFactory,
             AngularService angularService, AngularServiceOptions options) 
             : base(generator)
         {
@@ -134,14 +134,14 @@ namespace NetCore.Angular.TagHelpers
         }
     }
 
-    public class FormAngularTagHelper : FormTagHelper, IAngularConfig
+    public class FormAngTagHelper : FormTagHelper, IAngularConfig
     {
         private readonly AngularService angularService;
         private readonly AngularServiceOptions options;
 
         private const string Tag = "form";
 
-        public FormAngularTagHelper(IHtmlGenerator generator, 
+        public FormAngTagHelper(IHtmlGenerator generator, 
                 AngularService angularService, AngularServiceOptions options) 
             : base(generator)
         {
@@ -203,14 +203,14 @@ namespace NetCore.Angular.TagHelpers
         }
     }
 
-    public class InputAngularTagHelper : InputTagHelper, IAngularConfig
+    public class InputAngTagHelper : InputTagHelper, IAngularConfig
     {
         private readonly AngularService angularService;
         private readonly AngularServiceOptions options;
 
         private const string Tag = "input";
 
-        public InputAngularTagHelper(IHtmlGenerator generator, 
+        public InputAngTagHelper(IHtmlGenerator generator, 
             AngularService angularService, AngularServiceOptions options) : base(generator)
         {
             this.angularService = angularService;

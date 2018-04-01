@@ -8,7 +8,7 @@ using System.Text;
 namespace NetCore.Angular.TagHelpers
 {
 
-    public abstract class AngularTagHelper : TagHelper, IAngularConfig
+    public abstract class AngTagHelper : TagHelper, IAngularConfig
     {
 
         private readonly AngularService angularService;
@@ -43,7 +43,7 @@ namespace NetCore.Angular.TagHelpers
         public int? SwapIndex { get; set; }
         public string LoadOnSwap { get; set; }
 
-        public AngularTagHelper(AngularService angularService, AngularServiceOptions options)
+        public AngTagHelper(AngularService angularService, AngularServiceOptions options)
         {
             this.angularService = angularService;
             this.options = options;
@@ -54,9 +54,9 @@ namespace NetCore.Angular.TagHelpers
 
     }
 
-    public class DivAngularTagHelper : AngularTagHelper
+    public class DivAngTagHelper : AngTagHelper
     {
-        public DivAngularTagHelper(AngularService angularService, AngularServiceOptions options) 
+        public DivAngTagHelper(AngularService angularService, AngularServiceOptions options) 
             : base(angularService, options)
         {
         }
@@ -64,9 +64,9 @@ namespace NetCore.Angular.TagHelpers
         internal override string Tag => "div";
     }
 
-    public class ButtonAngularTagHelper : AngularTagHelper
+    public class ButtonAngTagHelper : AngTagHelper
     {
-        public ButtonAngularTagHelper(AngularService angularService, AngularServiceOptions options)
+        public ButtonAngTagHelper(AngularService angularService, AngularServiceOptions options)
             : base(angularService, options)
         {
         }
@@ -74,117 +74,117 @@ namespace NetCore.Angular.TagHelpers
         internal override string Tag => "Button";
     }
 
-    public class TableAngularTagHelper : AngularTagHelper
+    public class TableAngTagHelper : AngTagHelper
     {
-        public TableAngularTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
+        public TableAngTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
         {
         }
 
         internal override string Tag => "Table";
     }
 
-    public class TrAngularTagHelper : AngularTagHelper
+    public class TrAngTagHelper : AngTagHelper
     {
-        public TrAngularTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
+        public TrAngTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
         {
         }
 
         internal override string Tag => "Tr";
     }
 
-    public class LiAngularTagHelper : AngularTagHelper
+    public class LiAngTagHelper : AngTagHelper
     {
-        public LiAngularTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
+        public LiAngTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
         {
         }
 
         internal override string Tag => "Li";
     }
 
-    public class UlAngularTagHelper : AngularTagHelper
+    public class UlAngTagHelper : AngTagHelper
     {
-        public UlAngularTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
+        public UlAngTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
         {
         }
 
         internal override string Tag => "Ul";
     }
 
-    public class OlAngularTagHelper : AngularTagHelper
+    public class OlAngTagHelper : AngTagHelper
     {
-        public OlAngularTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
+        public OlAngTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
         {
         }
 
         internal override string Tag => "Ol";
     }
 
-    public class FooterAngularTagHelper : AngularTagHelper
+    public class FooterAngTagHelper : AngTagHelper
     {
-        public FooterAngularTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
+        public FooterAngTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
         {
         }
 
         internal override string Tag => "Footer";
     }
 
-    public class SpanAngularTagHelper : AngularTagHelper
+    public class SpanAngTagHelper : AngTagHelper
     {
-        public SpanAngularTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
+        public SpanAngTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
         {
         }
 
         internal override string Tag => "span";
     }
 
-    public class PAngularTagHelper : AngularTagHelper
+    public class PAngTagHelper : AngTagHelper
     {
-        public PAngularTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
+        public PAngTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
         {
         }
 
         internal override string Tag => "p";
     }
 
-    public class H1AngularTagHelper : AngularTagHelper
+    public class H1AngTagHelper : AngTagHelper
     {
-        public H1AngularTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
+        public H1AngTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
         {
         }
 
         internal override string Tag => "h1";
     }
 
-    public class H2AngularTagHelper : AngularTagHelper
+    public class H2AngTagHelper : AngTagHelper
     {
-        public H2AngularTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
+        public H2AngTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
         {
         }
 
         internal override string Tag => "h2";
     }
 
-    public class H3AngularTagHelper : AngularTagHelper
+    public class H3AngTagHelper : AngTagHelper
     {
-        public H3AngularTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
+        public H3AngTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
         {
         }
 
         internal override string Tag => "h3";
     }
 
-    public class H4AngularTagHelper : AngularTagHelper
+    public class H4AngTagHelper : AngTagHelper
     {
-        public H4AngularTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
+        public H4AngTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
         {
         }
 
         internal override string Tag => "h4";
     }
 
-    public class H5AngularTagHelper : AngularTagHelper
+    public class H5AngTagHelper : AngTagHelper
     {
-        public H5AngularTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
+        public H5AngTagHelper(AngularService angularService, AngularServiceOptions options) : base(angularService, options)
         {
         }
 

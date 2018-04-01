@@ -3,23 +3,23 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div-angular ang-data="Carousels" id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
+<div-ang ang-data="Carousels" id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">
     <ol class="carousel-indicators">
-        <li-angular ang-repeat="Carousels" data-target="#myCarousel" data-slide-to="{{Carousel.Id}}" ang-class="Carousel.ActiveClass"></li-angular>
+        <li-ang ang-repeat="Carousels" data-target="#myCarousel" data-slide-to="{{Carousel.Id}}" ang-class="Carousel.ActiveClass"></li-ang>
     </ol>
     
     <div class="carousel-inner" role="listbox">
-        <div-angular ang-repeat="Carousels" class="item" ang-class="Carousel.ActiveClass">
-            <img-angular ang-src-route="~/images/" ang-src="Carousel.Img" ang-alt="Carousel.ImgAlt" class="img-responsive" />
+        <div-ang ang-repeat="Carousels" class="item" ang-class="Carousel.ActiveClass">
+            <img-ang ang-src-route="~/images/" ang-src="Carousel.Img" ang-alt="Carousel.ImgAlt" class="img-responsive" />
             <div class="carousel-caption" role="option">
                 <p>
-                    <span-angular ang-bind="Carousel.Title"></span-angular>
-                    <a-angular class="btn btn-default" ang-href="Carousel.Link">
+                    <span-ang ang-bind="Carousel.Title"></span-ang>
+                    <a-ang class="btn btn-default" ang-href="Carousel.Link">
                         Learn More
-                    </a-angular>
+                    </a-ang>
                 </p>
             </div>
-        </div-angular>
+        </div-ang>
     </div>
     <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
         <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
@@ -29,7 +29,7 @@
         <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
         <span class="sr-only">Next</span>
     </a>
-</div-angular>
+</div-ang>
 
 <div class="row">
     <div class="col-md-3">
@@ -71,4 +71,4 @@
     </div>
 </div>
 
-<script-angular></script-angular>
+<script-ang></script-ang>
