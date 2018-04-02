@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Html;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace NetCore.Angular.Services
 
         internal IHtmlContent GenerateScripts()
         {
-            string Scripts = string.Join(@",\n",
+            string Scripts = string.Join(@",",
                         Pairs.Select(p => $"'{p.Key}' : {html.Raw(formatObject(p.Value))}")
                 );
             return html.Raw($"var netcore_angular_pairs = {{{Scripts}}};");
@@ -34,7 +35,8 @@ namespace NetCore.Angular.Services
             => JsonConvert.SerializeObject(obj, Formatting.None,
                         new JsonSerializerSettings()
                         {
-                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+                            ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+                            ContractResolver = new CamelCasePropertyNamesContractResolver()
                         });
 
     }

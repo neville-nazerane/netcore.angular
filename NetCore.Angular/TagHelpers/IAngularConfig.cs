@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using NetCore.Angular.Services;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace NetCore.Angular.TagHelpers
@@ -50,6 +51,10 @@ namespace NetCore.Angular.TagHelpers
     static class AngularConfigExtensions
     {
 
+        internal static string GetName(this ModelExpression model)
+            => string.Join(".", model.Name.Split(".")
+                                .Select(n => Char.ToLowerInvariant(n[0]) + n.Substring(1)));
+        
         internal static void Process(this IAngularConfig config, TagHelperContext context, TagHelperOutput output,
                     string Tag, AngularService angularService, AngularServiceOptions options)
         {
@@ -75,9 +80,9 @@ namespace NetCore.Angular.TagHelpers
 
             if (config.AngRepeat != null)
             {
-                string repStr = config.AngRepeat.Name;
+                string repStr = config.AngRepeat.GetName();
                 if (config.AngRepeatTo != null)
-                    repStr = $"{config.AngRepeatTo.Name} in {repStr}";
+                    repStr = $"{config.AngRepeatTo.GetName()} in {repStr}";
                 else if (repStr.EndsWith('s'))
                     repStr = $"{repStr.Substring(0, repStr.Length - 1)} in {repStr}";
                 else repStr = $"single in {repStr}";
@@ -90,7 +95,7 @@ namespace NetCore.Angular.TagHelpers
 
                 angularService.Pairs.Add(uid, config.AngData.Model);
                 output.Attributes.SetAttribute("netcore-angular-set", uid);
-                output.Attributes.SetAttribute("set-to-scope", config.AngData.Name);
+                output.Attributes.SetAttribute("set-to-scope", config.AngData.GetName());
             }
             else
             {
@@ -108,7 +113,7 @@ namespace NetCore.Angular.TagHelpers
                 }
                 else if (config.Destination != null)
                 {
-                    output.Attributes.SetAttribute("set-to-scope", config.Destination.Name);
+                    output.Attributes.SetAttribute("set-to-scope", config.Destination.GetName());
                 }
             }
             output.TagName = Tag;

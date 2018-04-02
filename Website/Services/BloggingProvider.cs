@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -36,7 +37,7 @@ namespace Website.Services
                         select p.Blog;
             }
             else blogs = context.Blogs;
-            return blogs;
+            return blogs.Include(b => b.Posts);
         }
 
     }

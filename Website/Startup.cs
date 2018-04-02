@@ -36,8 +36,7 @@ namespace Website
                     .AddTransient<AngularValues>()
                     .AddTransient<IdAble>();
 
-            services.AddMvc()
-                .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver()); ;
+            services.AddMvc();
 
         }
 

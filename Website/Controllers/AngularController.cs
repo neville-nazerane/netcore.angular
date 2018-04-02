@@ -22,7 +22,10 @@ namespace Website.Controllers
                 Blogs = context.Blogs.Include(b => b.Posts)
             });
 
-        public IActionResult V2() => View();
+        public IActionResult V2() => View(new AngularBloggingContext
+        {
+            Blogs = context.Blogs.Include(b => b.Posts)
+        });
 
         [HttpPost]
         public IActionResult AddBlog([FromBody]Blog blog)

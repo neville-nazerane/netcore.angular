@@ -60,10 +60,10 @@ namespace NetCore.Angular.TagHelpers
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
             if (AngAlt != null)
-                output.Attributes.SetAttribute("alt", $"{{{{{AngAlt.Name}}}}}");
+                output.Attributes.SetAttribute("alt", $"{{{{{AngAlt.GetName()}}}}}");
             if (AngSrc != null)
             {
-                string src = "{{" + AngSrc.Name + "}}";
+                string src = "{{" + AngSrc.GetName() + "}}";
                 if (AngSrcRoute != null)
                     src = UrlHelperFactory.GetUrlHelper(ViewContext).Content(AngSrcRoute) + src;
                 src = $"{AngSrcPrefix}{src}{AngSrcSuffix}";
@@ -122,7 +122,7 @@ namespace NetCore.Angular.TagHelpers
         {
             if (AngHref != null)
             {
-                string href = "{{" + AngHref.Name + "}}";
+                string href = "{{" + AngHref.GetName() + "}}";
                 if (AngHrefRoute != null)
                     
                     href = UrlHelperFactory.GetUrlHelper(ViewContext).Content(AngHrefRoute) + href;

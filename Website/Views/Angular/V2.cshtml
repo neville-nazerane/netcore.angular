@@ -1,1 +1,51 @@
-﻿
+﻿@model AngularBloggingContext
+
+@inject Website.Services.BloggingProvider Provider
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Blogs</h2>
+
+<form-ang asp-action="addBlog" on-success-append="Blogs" on-success-append-external="mainblog">
+    @Html.Partial("AddBlog", new Blog())
+</form-ang>
+
+<div-ang source="Provider.GetBlogs(User)" destination="Blogs" ang-identifier="mainblog">
+
+    <div-ang ang-repeat="Blogs">
+        <h3-ang ang-bind="Blog.Url"></h3-ang>
+
+
+        <div-ang ang-repeat="Blog.Posts" ang-repeat-to="Post" class="wells">
+            <div class="panel panel-primary">
+                <div-ang class="panel-heading" ang-bind="Post.Title"></div-ang>
+                <div class="panel-body">
+                    <div-ang ang-bind="Post.Content"></div-ang>
+                </div>
+            </div>
+            
+        </div-ang>
+
+        <div-ang swapable="">
+            <button-ang swap-index="0" ng-click="swap()" class="btn-success" >Add</button-ang>
+            <div-ang swap-index="1">
+                <form-ang asp-action="addPost" on-success-append="Blog.Posts"
+                          load-on-swap="/angular/addpost?blogID={{Blog.BlogId}}">
+                </form-ang>
+                <button ng-click="swap()" class="btn btn-success">Cancel</button>
+            </div-ang>
+        </div-ang>
+
+    </div-ang>
+
+</div-ang>
+
+
+
+
+@section scripts {
+    <script-ang></script-ang>
+    @Html.Partial("_ValidationScriptsPartial")
+}

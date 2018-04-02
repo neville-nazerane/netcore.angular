@@ -203,6 +203,7 @@ var netcore_angular_formDefaults = {
         if (meta.action === "push") {
             //if (typeof ($scope[scopeKey]) === "undefined")
             //    $scope[scopeKey] = [];
+            //$scope[scopeKey].push(meta.data);
             fetchObj($scope, scopeKey).push(meta.data);
         }
         else if (meta.action === "set") {

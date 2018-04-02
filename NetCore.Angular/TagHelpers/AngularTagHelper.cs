@@ -197,7 +197,7 @@ namespace NetCore.Angular.TagHelpers
         internal static TagHelperOutput SetNgFor(this TagHelperOutput output, ModelExpression expression, string ng)
         {
             if (expression != null)
-                output.Attributes.SetAttribute(ng, expression.Name);
+                output.Attributes.SetAttribute(ng, expression.GetName());
             return output;
         }
     }

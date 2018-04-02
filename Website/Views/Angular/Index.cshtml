@@ -6,12 +6,23 @@
     ViewData["Title"] = "Index";
 }
 
+
+
+
+
+
+
+
+
+
+
+
 <h4>Add Blog</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form-ang asp-action="AddBlog"
-                   on-success-append="Blogs" on-success-append-external="main" >
+                  on-success-append="Blogs" on-success-append-external="main">
             @Html.Partial("addBlog", new Blog())
         </form-ang>
     </div>
@@ -21,10 +32,12 @@
 <h2>Data from angular</h2>
 
 
+
+
 <div-ang ang-data="Blogs" ang-identifier="main">
     <div-ang class="well" ang-repeat="Blogs" ang-identifier="blogger">
-        <h3-ang ng-bind="Blog.Url"></h3-ang>
-        <div-ang class="panel-group" >
+        <h3-ang ang-bind="Blog.Url"></h3-ang>
+        <div-ang class="panel-group">
             <div-ang ang-repeat="Blog.Posts" ang-repeat-to="Post" class="panel panel-primary">
                 <div class="panel-heading">
                     <div-ang ang-bind="Post.Title"></div-ang>
@@ -37,8 +50,8 @@
         <div-ang swapable="">
             <button-ang swap-index="0" class="btn btn-success" ng-click="swap()">Add Post</button-ang>
             <div-ang swap-index="1">
-                <form-ang on-success-append="Blog.Posts" 
-                      load-on-swap="/angular/addPost?blogID={{Blog.BlogId}}" asp-action="addPost">
+                <form-ang on-success-append="Blog.Posts"
+                          load-on-swap="/angular/addPost?blogID={{Blog.BlogId}}" asp-action="addPost">
                 </form-ang>
                 <button ng-click="swap()" class="btn btn-warning">Cancel</button>
             </div-ang>
