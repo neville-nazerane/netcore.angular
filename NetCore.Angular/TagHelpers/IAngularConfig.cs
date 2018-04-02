@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.ViewFeatures;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.AspNetCore.Razor.TagHelpers;
 using NetCore.Angular.Services;
 using System;
@@ -10,7 +12,9 @@ namespace NetCore.Angular.TagHelpers
 {
     interface IAngularConfig
     {
-        
+
+        ViewContext ViewContext { get; set; }
+
         object Source { get; set; }
 
         string ScopeDest { get; set; }
@@ -44,8 +48,13 @@ namespace NetCore.Angular.TagHelpers
 
         string Swapable { get; set; }
         int? SwapIndex { get; set; }
-        string LoadOnSwap { get; set; }
+        bool? LoadOnSwap { get; set; }
         
+        ModelExpression LoadKey { get; set; }
+        string LoadPrefix { get; set; }
+        string LoadSuffix { get; set; }
+        string LoadRoute { get; set; }
+
     }
 
     static class AngularConfigExtensions
@@ -56,6 +65,7 @@ namespace NetCore.Angular.TagHelpers
                                 .Select(n => Char.ToLowerInvariant(n[0]) + n.Substring(1)));
         
         internal static void Process(this IAngularConfig config, TagHelperContext context, TagHelperOutput output,
+                    IUrlHelperFactory urlHelperFactory, 
                     string Tag, AngularService angularService, AngularServiceOptions options)
         {
             
@@ -70,8 +80,21 @@ namespace NetCore.Angular.TagHelpers
                 output.Attributes.SetAttribute("swapable", null);
             if (config.SwapIndex != null)
                 output.Attributes.SetAttribute("Swap-index", config.SwapIndex);
+
+            string loadingUrl = "";
+            if (config.LoadRoute != null)
+                loadingUrl = urlHelperFactory.GetUrlHelper(config.ViewContext).Content(config.LoadRoute);
+
+            if (config.LoadKey != null)
+            {
+                loadingUrl+= "{{" + config.LoadKey.GetName() + "}}";
+                loadingUrl = $"{config.LoadPrefix}{loadingUrl}{config.LoadSuffix}";
+            }
+            if (loadingUrl != "")
+                output.Attributes.SetAttribute("load-url", loadingUrl);
+
             if (config.LoadOnSwap != null)
-                output.Attributes.SetAttribute("load-on-swap", config.LoadOnSwap);
+                output.Attributes.SetAttribute("load-on-swap", config.LoadOnSwap.ToString().ToLower());
 
             if (config.AngIdentifier != null)
                 output.Attributes.SetAttribute("listening-root-key", config.AngIdentifier);

@@ -51,7 +51,7 @@
             <button-ang swap-index="0" class="btn btn-success" ng-click="swap()">Add Post</button-ang>
             <div-ang swap-index="1">
                 <form-ang on-success-append="Blog.Posts"
-                          load-on-swap="/angular/addPost?blogID={{Blog.BlogId}}" asp-action="addPost">
+                          load-on-swap="/angular/addPost?blogID={{blog.blogId}}" asp-action="addPost">
                 </form-ang>
                 <button ng-click="swap()" class="btn btn-warning">Cancel</button>
             </div-ang>

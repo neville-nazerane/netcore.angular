@@ -26,13 +26,13 @@ var netcore_angular_formDefaults = {
                 restrict: 'A',
                 controller: function ($scope) {
 
-                    $scope.swapIndex = 0;
+                    $scope.swapCurrentIndex = 0;
 
                     $scope.swap = function () {
-                        $scope.swapIndex = 1 - $scope.swapIndex;
+                        $scope.swapCurrentIndex = 1 - $scope.swapCurrentIndex;
                     };
                     $scope.swapTo = function (index) {
-                        $scope.swapIndex = index;
+                        $scope.swapCurrentIndex = index;
                     }
                 }
             }
@@ -45,8 +45,8 @@ var netcore_angular_formDefaults = {
 
                     $scope.swappedIn = false;
 
-                    $scope.$parent.$watch('swapIndex', function (val) {
-                        if (val == $attrs.swapIndex) {
+                    $scope.$parent.$watch('swapCurrentIndex', function (val) {
+                        if (val === Number($attrs.swapIndex)) {
                             $scope.swappedIn = true;
                             $element.show();
                             if (typeof ($attrs.loadOnSwap) !== "undefined") {
@@ -68,29 +68,40 @@ var netcore_angular_formDefaults = {
                 }
             };
         })
-        .directive('loadOnSwap', function () {
+        .directive('loadUrl', function () {
             return {
                 scope: true,
                 restrict: 'A',
                 controller: function ($scope, $attrs, $http, $element) {
                     $scope.loadContent = function () {
-                        $http.get($attrs.loadOnSwap)
+                        $http.get($attrs.loadUrl)
                             .then(function (res) {
                                 $element.html(res.data);
                             },
                             function (e) {
-                                console.error("unable to load content from " + $attrs.loadOnSwap, e);
+                                console.error("unable to load content from " + $attrs.loadUrl, e);
                             });
                     };
-
                     $scope.unloadContent = function () {
                         $element.html('');
                     };
-
+                }
+            };
+        })
+        .directive('loadOnSwap', function () {
+            return {
+                scope: true,
+                restrict: 'A',
+                controller: function ($scope, $attrs, $http, $element) {
                     $scope.$parent.$watch('swappedIn', function (swap) {
-                        if (typeof (swap) !== "undefined") {
-                            if (swap) $scope.loadContent();
-                            else $scope.unloadContent();
+                        if (typeof ($attrs.loadUrl) === "undefined") {
+                            console.error("no load-url defined for loading");
+                        }
+                        else {
+                            if ($attrs.loadOnSwap && typeof (swap) !== "undefined") {
+                                if (swap) $scope.loadContent();
+                                else $scope.unloadContent();
+                            }
                         }
                     });
 
@@ -182,6 +193,7 @@ var netcore_angular_formDefaults = {
                                     }
                                     $element[0].reset();
                                 }, function (res) {
+
                                     formDefaults.onServerFail(res);
                                     formDefaults.onFail(res);
                                     $rootScope.formDefaults.onServerFail(res);
