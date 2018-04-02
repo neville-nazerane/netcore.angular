@@ -1,5 +1,6 @@
 ﻿
 var netcore_angular_formDefaults = {
+    // all the following also use: $scope, $attrs, $http, $element, $rootScope 
     onSuccess : function (result) { },
     onFail : function (result) { }, // includes both failures below
     onClientFail : function () { }, // client side failure
@@ -12,12 +13,6 @@ var netcore_angular_formDefaults = {
 
     angular.module('netcore-angular', [])
         .run(function ($rootScope) {
-            $rootScope.formDefaults = {
-                onSuccess: function (result) { },
-                onFail: function (result) { }, // includes both failures below
-                onClientFail: function () { }, // client side failure
-                onServerFail: function (result) { } // server side failure
-            };
             $rootScope.scopeAccess = {};
         })
         .directive('swapable', function () {
@@ -92,7 +87,7 @@ var netcore_angular_formDefaults = {
             return {
                 scope: true,
                 restrict: 'A',
-                controller: function ($scope, $attrs, $http, $element) {
+                controller: function ($scope, $attrs, $http, $element, $rootScope) {
                     $scope.$parent.$watch('swappedIn', function (swap) {
                         if (typeof ($attrs.loadUrl) === "undefined") {
                             console.error("no load-url defined for loading");
@@ -154,8 +149,7 @@ var netcore_angular_formDefaults = {
                         if ($(this).valid()) {
                             $http.post($(this).attr("action"), $(this).keyValArray())
                                 .then(function (res) {
-                                    formDefaults.onSuccess(res);
-                                    $rootScope.formDefaults.onSuccess(res);
+                                    formDefaults.onSuccess(res, $scope, $http, $attrs, $element, $rootScope);
                                     if (typeof ($attrs.onSuccessAppend) !== "undefined") {
                                         if (typeof ($attrs.onSuccessAppendExternal) !== "undefined") {
                                             // external scope
@@ -194,17 +188,15 @@ var netcore_angular_formDefaults = {
                                     $element[0].reset();
                                 }, function (res) {
 
-                                    formDefaults.onServerFail(res);
-                                    formDefaults.onFail(res);
-                                    $rootScope.formDefaults.onServerFail(res);
-                                    $rootScope.formDefaults.onFail(res);
+                                    $element.html(res.data);
+
+                                    formDefaults.onServerFail(res, $scope, $attrs, $http, $element, $rootScope);
+                                    formDefaults.onFail(res, $scope, $attrs, $http, $element, $rootScope );
                                 });
                         }
                         else {
-                            formDefaults.onClientFail();
-                            formDefaults.onFail();
-                            $rootScope.formDefaults.onClientFail();
-                            $rootScope.formDefaults.onFail();
+                            formDefaults.onClientFail($scope, $attrs, $http, $element, $rootScope );
+                            formDefaults.onFail(null, $scope, $attrs, $http, $element, $rootScope );
                         }
                     });
                 }
