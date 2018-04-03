@@ -44,14 +44,14 @@ var netcore_angular_formDefaults = {
                         if (val === Number($attrs.swapIndex)) {
                             $scope.swappedIn = true;
                             $element.show();
-                            if (typeof ($attrs.loadOnSwap) !== "undefined") {
+                            if (typeof ($attrs.loadOnSwap) !== "undefined" && $attrs.loadOnSwap === "true") {
                                 $scope.loadContent();
                             }
                         }
                         else {
                             $scope.swappedIn = false;
                             $element.hide()
-                            if (typeof ($attrs.loadOnSwap) !== "undefined") {
+                            if (typeof ($attrs.loadOnSwap) !== "undefined" && $attrs.loadOnSwap === "true") {
                                 $scope.unloadContent();
                             }
                         }
@@ -93,7 +93,7 @@ var netcore_angular_formDefaults = {
                             console.error("no load-url defined for loading");
                         }
                         else {
-                            if ($attrs.loadOnSwap && typeof (swap) !== "undefined") {
+                            if ($attrs.loadOnSwap === "true" && typeof (swap) !== "undefined") {
                                 if (swap) $scope.loadContent();
                                 else $scope.unloadContent();
                             }
@@ -123,7 +123,7 @@ var netcore_angular_formDefaults = {
                 controller: function ($scope, $rootScope, $attrs) {
                     if (typeof ($attrs.listeningRootKey) !== "undefined") {
 
-                        $rootScope.$watch("scopeAccess." + $scope.$eval($attrs.listeningRootKey), function (val) {
+                        $rootScope.$watch("scopeAccess." + $attrs.listeningRootKey, function (val) {
                             if (typeof (val) === "undefined") return;
                             var scopeKey = null;
                             if (typeof ($attrs.targetScope) !== "undefined") {
@@ -150,6 +150,19 @@ var netcore_angular_formDefaults = {
                             $http.post($(this).attr("action"), $(this).keyValArray())
                                 .then(function (res) {
                                     formDefaults.onSuccess(res, $scope, $http, $attrs, $element, $rootScope);
+                                    if (typeof ($attrs.onSuccess) !== "undefined") {
+                                        if (typeof ($scope[$attrs.onSuccess]) === "function") {
+                                            $scope[$attrs.onSuccess](res);
+                                        }
+                                        else console.error("No function found in scope with the name " + $attrs.onSuccess);
+                                    }
+                                    if (typeof ($attrs.onSuccessSwap) !== "undefined"
+                                                    && $attrs.onSuccessSwap === "true") {
+                                        swapScope = $scope;
+                                        while (typeof (swapScope) !== "undefined" && typeof (swapScope.swap) !== "function")
+                                            swapScope = $scope.$parent;
+                                        if (typeof (swapScope) !== "undefined") swapScope.swap();
+                                    }
                                     if (typeof ($attrs.onSuccessAppend) !== "undefined") {
                                         if (typeof ($attrs.onSuccessAppendExternal) !== "undefined") {
                                             // external scope
@@ -185,11 +198,12 @@ var netcore_angular_formDefaults = {
                                             });
                                         }
                                     }
-                                    $element[0].reset();
+                                    $element.find("input:not([type=button],[type=submit],[type=hidden])").val("");
+                                    $element.find("[data-valmsg-for]").text("");
                                 }, function (res) {
-
-                                    $element.html(res.data);
-
+                                    if (typeof ($attrs.onFailureLoadResult) !== "undefined"
+                                                        && $attrs.onFailureLoadResult === "true")
+                                        $element.html(res.data);
                                     formDefaults.onServerFail(res, $scope, $attrs, $http, $element, $rootScope);
                                     formDefaults.onFail(res, $scope, $attrs, $http, $element, $rootScope );
                                 });
@@ -205,9 +219,6 @@ var netcore_angular_formDefaults = {
 
     function actionToScope($scope, scopeKey, meta) {
         if (meta.action === "push") {
-            //if (typeof ($scope[scopeKey]) === "undefined")
-            //    $scope[scopeKey] = [];
-            //$scope[scopeKey].push(meta.data);
             fetchObj($scope, scopeKey).push(meta.data);
         }
         else if (meta.action === "set") {
@@ -220,10 +231,15 @@ var netcore_angular_formDefaults = {
 
     function fetchObj(obj, key) {
         var curr = obj;
+        var last, lastKey;
         key.split(".").forEach(function (k) {
             if (typeof (curr) === "undefined") return;
+            lastKey = k;
+            last = curr;
             curr = curr[k];
         });
+        if (typeof (curr) === "undefined")
+            return last[lastKey] = {};
         return curr;
     }
 

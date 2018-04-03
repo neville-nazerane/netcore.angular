@@ -8,11 +8,12 @@
 
 <h2>Blogs</h2>
 
-<form-ang asp-action="addBlog" on-success-append="Blogs" on-success-append-external="mainblog">
+<form-ang asp-action="addBlog" on-success-append="Blogs" on-success-append-external="blogging"
+                on-failure-load-result="true" >
     @Html.Partial("AddBlog", new Blog())
 </form-ang>
 
-<div-ang source="Provider.GetBlogs(User)" destination="Blogs" ang-identifier="mainblog">
+<div-ang source="Provider.GetBlogs(User)" destination="Blogs" ang-identifier="blogging">
 
     <div-ang ang-repeat="Blogs">
         <h3-ang ang-bind="Blog.Url"></h3-ang>
@@ -32,7 +33,8 @@
                 <button-ang swap-index="0" ng-click="swap()" class="btn btn-success">Add</button-ang>
                 <div-ang swap-index="1">
                     <form-ang asp-action="addPost" on-success-append="Blog.Posts" load-on-swap="true"
-                              load-route="~/angular/addpost?blogID=" load-key="Blog.BlogId">
+                              on-success-swap="true"
+                       on-failure-load-result="true" load-route="~/angular/addpost?blogID=" load-key="Blog.BlogId">
                     </form-ang>
                     <button ng-click="swap()" class="btn btn-success">Cancel</button>
                 </div-ang>

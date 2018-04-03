@@ -180,9 +180,13 @@ namespace NetCore.Angular.TagHelpers
         public ModelExpression OnSuccessAppend { get; set; }
         public string OnSuccessAppendExternal { get; set; }
 
+        public bool? AngSubmit { get; set; }
+        public string OnSuccess { get; set; }
+        public bool? OnSuccessSwap { get; set; }
         public ModelExpression OnSuccessEdit { get; set; }
         public string OnSuccessEditExternal { get; set; }
         public string OnSuccessEditIndex { get; set; }
+        public bool? OnFailureLoadResult { get; set; }
 
         public string Swapable { get; set; }
         public int? SwapIndex { get; set; }
@@ -197,8 +201,8 @@ namespace NetCore.Angular.TagHelpers
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
-
-            if (OnSuccessAppend != null || OnSuccessEdit!= null)
+            
+            if (AngSubmit ?? true)
                 output.Attributes.SetAttribute("ang-submit", "");
 
             output.SetNgFor(OnSuccessAppend, "on-success-append");
@@ -210,9 +214,16 @@ namespace NetCore.Angular.TagHelpers
                 output.SetNgFor(OnSuccessEdit, "on-success-edit");
                 output.Attributes.SetAttribute("on-success-edit-index", OnSuccessEditIndex ?? "$index");
             }
+            if (OnSuccess != null)
+                output.Attributes.SetAttribute("on-success", OnSuccess);
+            if (OnSuccessSwap != null)
+                output.Attributes.SetAttribute("on-success-swap", OnSuccessSwap);
 
             if (OnSuccessEditExternal != null)
                 output.Attributes.SetAttribute("on-success-edit-external", OnSuccessEditExternal);
+
+            if (OnFailureLoadResult != null)
+                output.Attributes.SetAttribute("on-failure-load-result", OnFailureLoadResult.ToString().ToLower());
 
             this.Process(context, output, urlHelperFactory, Tag, angularService, options);
             base.Process(context, output);

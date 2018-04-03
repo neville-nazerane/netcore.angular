@@ -30,13 +30,17 @@ namespace Website.Controllers
         [HttpPost]
         public IActionResult AddBlog([FromBody]Blog blog)
         {
-            if (ModelState.IsValid)
+            blog.Validate(context);
+            ModelState.Clear();
+            if (TryValidateModel(blog))
             {
                 context.Add(blog);
                 context.SaveChanges();
                 return Ok(blog);
             }
-            else return BadRequest();
+            var result = PartialView(blog);
+            result.StatusCode = 400;
+            return result;
         }
 
         [HttpGet]
@@ -52,7 +56,9 @@ namespace Website.Controllers
                 context.SaveChanges();
                 return Ok(post);
             }
-            return BadRequest();
+            var result = PartialView(post);
+            result.StatusCode = 400;
+            return result;
         }
     }
 }

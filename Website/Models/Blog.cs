@@ -13,6 +13,7 @@ namespace Website.Models
 
         [Required]
         [Never(ErrorMessage = "Never say never")]
+        [NoRepeat]
         public string Url { get; set; }
 
         public List<Post> Posts { get; set; }
@@ -20,7 +21,25 @@ namespace Website.Models
 
         class NeverAttribute : ValidationAttribute
         {
-            public override bool IsValid(object value) => value.ToString() != "never";
+            public override bool IsValid(object value) => value?.ToString() != "never";
+        }
+
+        internal void Validate(BloggingContext context)
+        {
+            isRepeat = context.Blogs.Any(b => b.Url == Url);
+        }
+
+        bool isRepeat;
+        class NoRepeatAttribute : ValidationAttribute
+        {
+
+            protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+            {
+                if (validationContext.ObjectInstance is Blog blog && blog.isRepeat)
+                    return new ValidationResult("Blog already exists");
+                else return ValidationResult.Success;
+            }
+
         }
 
     }

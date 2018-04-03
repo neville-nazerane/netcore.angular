@@ -54,7 +54,7 @@ namespace NetCore.Angular.TagHelpers
         string LoadPrefix { get; set; }
         string LoadSuffix { get; set; }
         string LoadRoute { get; set; }
-
+        
     }
 
     static class AngularConfigExtensions
@@ -68,13 +68,14 @@ namespace NetCore.Angular.TagHelpers
                     IUrlHelperFactory urlHelperFactory, 
                     string Tag, AngularService angularService, AngularServiceOptions options)
         {
-            
+
             output.SetNgFor(config.AngBind, "ng-bind")
                   .SetNgFor(config.AngClass, "ng-class")
                   .SetNgFor(config.AngIf, "ng-if")
                   .SetNgFor(config.AngShow, "ng-show")
                   .SetNgFor(config.AngHide, "ng-hide")
                   .SetNgFor(config.AngIdentifierScope, "target-scope");
+
 
             if (config.Swapable != null)
                 output.Attributes.SetAttribute("swapable", null);
