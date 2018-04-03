@@ -230,20 +230,20 @@ var netcore_angular_formDefaults = {
     }
 
     function fetchObj(obj, key) {
-        var curr = obj;
-        var last, lastKey;
-        key.split(".").forEach(function (k) {
-            if (typeof (curr) === "undefined") return;
-            lastKey = k;
-            last = curr;
-            curr = curr[k];
-        });
-        if (typeof (curr) === "undefined")
-            return last[lastKey] = {};
-        return curr;
+        var arr = key.split(".");
+        curr = obj;
+        for (var i = 0; i < arr.length - 1; i++) {
+            if (typeof (curr[arr[i]]) === "undefined" || curr[arr[i]] === null) {
+                curr[arr[i]] = {};
+            }
+            curr = curr[arr[i]];
+        }
+        if (typeof (curr[arr[arr.length - 1]]) === "undefined" || curr[arr[arr.length - 1]] === null) {
+            curr[arr[arr.length - 1]] = [];
+        }
+        return curr[arr[arr.length - 1]];
     }
-
-
+    
 })();
 
 (function ($) {

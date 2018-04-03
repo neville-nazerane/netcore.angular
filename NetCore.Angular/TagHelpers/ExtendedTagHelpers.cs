@@ -217,7 +217,7 @@ namespace NetCore.Angular.TagHelpers
             if (OnSuccess != null)
                 output.Attributes.SetAttribute("on-success", OnSuccess);
             if (OnSuccessSwap != null)
-                output.Attributes.SetAttribute("on-success-swap", OnSuccessSwap);
+                output.Attributes.SetAttribute("on-success-swap", OnSuccessSwap.ToString().ToLower());
 
             if (OnSuccessEditExternal != null)
                 output.Attributes.SetAttribute("on-success-edit-external", OnSuccessEditExternal);
