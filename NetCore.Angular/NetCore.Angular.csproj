@@ -3,15 +3,17 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <PackageId>NetCore.Angular</PackageId>
-    <PackageVersion>1.0.5</PackageVersion>
+    <PackageVersion>1.4.0</PackageVersion>
     <Authors>Neville Nazerane</Authors>
     <Description>
       Integration between .net core web applications and angulars
     </Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>
-        - added extended tag helpers for a, img, form and input
-        - added direct data injection using ang-data
+      - ajax loadable 
+      - swapable (compatable with loadable)
+      - form on success functions (compatable with swapable and loadable)
+      - form on failure can load from partial view (for validations)
     </PackageReleaseNotes>
     <PackageTags>netcore mvc angular strongly typed safe tag helpers</PackageTags>
     <!--<PackageIconUrl>http://netcoresimple.azurewebsites.net/content/themes/icon.png</PackageIconUrl>-->
