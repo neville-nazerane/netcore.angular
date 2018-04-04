@@ -5,10 +5,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20180403080506_Init.cs" />
+    <Compile Remove="Migrations\20180403080506_Init.Designer.cs" />
+    <Compile Remove="Migrations\20180403080704_Init.cs" />
+    <Compile Remove="Migrations\20180403080704_Init.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.0.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.0.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.3" />
+    <PackageReference Include="netcore.angular" Version="1.4.0" />
   </ItemGroup>
 
   <ItemGroup>

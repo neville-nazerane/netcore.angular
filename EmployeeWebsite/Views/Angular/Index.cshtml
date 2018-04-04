@@ -1,0 +1,57 @@
+﻿@model AngularContext
+
+@inject DepartmentProvider Provider
+
+@{
+    ViewData["Title"] = "Angular";
+}
+
+<h2>Angular View</h2>
+<div-ang source="Provider.AllDepartments()" destination="Departments" >
+
+    <div-ang ang-repeat="Departments">
+        <div class="well">
+
+            <h2-ang ang-bind="Department.Title"></h2-ang>
+            <p-ang ang-bind="Department.Description"></p-ang>
+            <p-ang ang-bind="Department.Id"></p-ang>
+            <div-ang ang-repeat="Department.Employees" ang-repeat-to="Employee">
+                <div-ang class="panel-group">
+                    <div class="panel">
+                        <div class="panel-heading"><h3-ang ang-bind="Employee.FirstName"></h3-ang></div>
+                        <div class="panel-body">
+                            <div-ang ang-bind="Employee.FirstName"></div-ang>
+                            <div-ang ang-bind="Employee.LastName"></div-ang>
+                            <div-ang ang-bind="Employee.JobTitle"></div-ang>
+                        </div>
+                    </div>
+                </div-ang>
+            </div-ang>
+            <div-ang swapable="">
+
+                <button-ang class="btn btn-primary" ng-click="swap()" swap-index="0">Add Employee</button-ang>
+                <form-ang swap-index="1" asp-action="addEmployee" on-failure-load-result="true"
+                          on-success-append="Department.Employees">
+                    <div-ang load-route="~/angular/addEmployee/" load-key="Department.Id" load-on-swap="true">
+
+                    </div-ang>
+                    <div>
+                        <input type="submit" class="btn btn-success" value="Add" />
+                        <input ng-click="swap()" type="button" class="btn btn-warning" value="Cancel" />
+                    </div>
+                </form-ang>
+
+            </div-ang>
+
+        </div>
+    </div-ang>
+    
+    <form-ang asp-action="AddDepartment" on-success-append="Departments" on-failure-load-result="true">
+        @Html.Partial("AddDepartment")
+    </form-ang>
+</div-ang>
+
+@section scripts {
+    <script-ang></script-ang>
+    @Html.Partial("_ValidationScriptsPartial")
+}
