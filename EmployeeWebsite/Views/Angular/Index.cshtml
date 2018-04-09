@@ -14,11 +14,10 @@
 
             <h2-ang ang-bind="Department.Title"></h2-ang>
             <p-ang ang-bind="Department.Description"></p-ang>
-            <p-ang ang-bind="Department.Id"></p-ang>
             <div-ang ang-repeat="Department.Employees" ang-repeat-to="Employee">
                 <div-ang class="panel-group">
-                    <div class="panel">
-                        <div class="panel-heading"><h3-ang ang-bind="Employee.FirstName"></h3-ang></div>
+                    <div class="panel panel-primary">
+                        <div-ang ang-bind="Employee.FirstName" class="panel-heading"></div-ang>
                         <div class="panel-body">
                             <div-ang ang-bind="Employee.FirstName"></div-ang>
                             <div-ang ang-bind="Employee.LastName"></div-ang>
