@@ -6,48 +6,49 @@
     ViewData["Title"] = "Index";
 }
 
+
 <h2>Blogs</h2>
 
-<form-ang asp-action="addBlog" on-success-append="Blogs" on-success-append-external="blogging"
+<form asp-action="addBlog" on-success-append="Blogs" on-success-append-external="blogging"
                 on-failure-load-result="true" >
     @Html.Partial("AddBlog", new Blog())
-</form-ang>
+</form>
 
-<div-ang source="Provider.GetBlogs(User)" destination="Blogs" ang-identifier="blogging">
+<div ang-source="Provider.GetBlogs(User)" ang-destination="Blogs" ang-identifier="blogging">
 
-    <div-ang ang-repeat="Blogs">
-        <h3-ang ang-bind="Blog.Url"></h3-ang>
+    <div ang-repeat="Blogs">
+        <h3 ang-bind="Blog.Url"></h3>
 
         <div class="well">
-            <div-ang ang-repeat="Blog.Posts" ang-repeat-to="Post" class="panel-group">
+            <div ang-repeat="Blog.Posts" ang-repeat-to="Post" class="panel-group">
                 <div class="panel panel-primary">
-                    <div-ang class="panel-heading" ang-bind="Post.Title"></div-ang>
+                    <div class="panel-heading" ang-bind="Post.Title"></div>
                     <div class="panel-body">
-                        <div-ang ang-bind="Post.Content"></div-ang>
+                        <div ang-bind="Post.Content"></div>
                     </div>
                 </div>
-            </div-ang>
-            <div-ang swapable="">
-                <button-ang swap-index="0" ng-click="swap()" class="btn btn-success">Add</button-ang>
-                <div-ang swap-index="1">
-                    <form-ang asp-action="addPost" on-success-append="Blog.Posts" load-on-swap="true"
+            </div>
+            <div swapable="">
+                <button swap-index="0" ng-click="swap()" class="btn btn-success">Add</button>
+                <div swap-index="1">
+                    <form asp-action="addPost" on-success-append="Blog.Posts" load-on-swap="true"
                               on-success-swap="true"
                        on-failure-load-result="true" load-route="~/angular/addpost?blogID=" load-key="Blog.BlogId">
-                    </form-ang>
+                    </form>
                     <button ng-click="swap()" class="btn btn-success">Cancel</button>
-                </div-ang>
-            </div-ang>
+                </div>
+            </div>
         </div>
 
 
-    </div-ang>
+    </div>
 
-</div-ang>
+</div>
 
 
 
 
 @section scripts {
-    <script-ang></script-ang>
+    <script-angular></script-angular>
     @Html.Partial("_ValidationScriptsPartial")
 }

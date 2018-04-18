@@ -3,20 +3,19 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <PackageId>NetCore.Angular</PackageId>
-    <PackageVersion>1.4.0</PackageVersion>
+    <PackageVersion>2.0.0</PackageVersion>
     <Authors>Neville Nazerane</Authors>
     <Description>
       Integration between .net core web applications and angulars
     </Description>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <PackageReleaseNotes>
-      - ajax loadable 
-      - swapable (compatable with loadable)
-      - form on success functions (compatable with swapable and loadable)
-      - form on failure can load from partial view (for validations)
+      - script-ang changed to script-angular
+      - all other tags cleaned up to work without the -ang suffix
+      - Note: not backward compatable from 1.x (check read me for more info)
+      - On success set option added for forms
     </PackageReleaseNotes>
     <PackageTags>netcore mvc angular strongly typed safe tag helpers</PackageTags>
-    <!--<PackageIconUrl>http://netcoresimple.azurewebsites.net/content/themes/icon.png</PackageIconUrl>-->
     <PackageProjectUrl>https://github.com/neville-nazerane/netcore.angular</PackageProjectUrl>
     <RootNamespace>NetCore.Angular</RootNamespace>
     <AssemblyName>NetCore.Angular</AssemblyName>

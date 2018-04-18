@@ -198,6 +198,25 @@ var netcore_angular_formDefaults = {
                                             });
                                         }
                                     }
+
+                                    if (typeof ($attrs.onSuccessSet) !== "undefined") {
+                                        if (typeof ($attrs.onSuccessSetExternal) !== "undefined") {
+                                            // external scope
+                                            $rootScope.scopeAccess[$attrs.onSuccessSetExternal] = {
+                                                action: "set",
+                                                scopeKey: $attrs.onSuccessSet,
+                                                data: res.data
+                                            };
+                                        }
+                                        else {
+                                            actionToScope($scope, $attrs.onSuccessSet, {
+                                                action: "set",
+                                                data: res.data
+                                            });
+                                        }
+                                    }
+
+
                                     $element.find("input:not([type=button],[type=submit],[type=hidden])").val("");
                                     $element.find("[data-valmsg-for]").text("");
                                 }, function (res) {
