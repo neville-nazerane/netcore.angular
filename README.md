@@ -49,5 +49,40 @@ services.AddNetCoreAngular()
 3. In your angular app module, include `netcore-angular`
 
 
+## Usage
 
+This library provides you with intellisense as long as you have the properties in your view model in a razor page. 
+
+Let's say you have an `Employee` class with properties `FirstName` and `Age`. Your view model can have an `Employee` property. You can now have intellisense for several angular tags by using `ang` instead of `ng` like this:
+
+```
+<div ang-bind="Employee.FirstName">
+    <span ang-bind="Employee.Age">
+```  
+
+This code makes sure your angular tags are valid as per your c# classes and that you get intellisense for everything.
+ 
+If your `Employee` property has a value in c#, you can pass this value to angular without needing to setup an API endpoint and consume it with a angular controller. You can simply use the following:
+
+```
+<div ang-data="Employee">
+  <div ang-bind="Employee.FirstName">
+      <span ang-bind="Employee.Age"></span>
+  </div>
+</div>
+```
+
+`ang-data` would add the value of `Employee` from c# into an the `$scope.employee` in angular js. If you don't want the output to be `$scope.employee`, but instead set into a custom variable like `$scope.customEmployee`, you can replace `ang-data="Employee"` with `ang-bind="Employee" ang-scope-dest="customEmployee"`.  
+
+This code doesn't need an angular controller to be setup. However, for additional functionality, js code can be integrated with this.
+
+```
+<div ng-controller="myController" ang-data="Employee">
+  <div ang-bind="Employee.FirstName">
+      <span ang-bind="Employee.Age"></span>
+  </div>
+</div>
+```
+You can then create a controller in js and manage your `$scope.employee`. 
+      
 
